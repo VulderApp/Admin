@@ -7,7 +7,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Vulder.Admin.Infrastructure.Configuration;
 using Vulder.SharedKernel;
 
 namespace Vulder.Admin.Infrastructure.Data

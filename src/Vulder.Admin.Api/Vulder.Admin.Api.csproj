@@ -11,10 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Vulder.Admin.Infrastructure\Vulder.Admin.Infrastructure.csproj" />
   </ItemGroup>
 

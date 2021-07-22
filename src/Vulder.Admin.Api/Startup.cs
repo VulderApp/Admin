@@ -30,6 +30,7 @@ namespace Vulder.Admin.Api
         {
 
             services.AddControllers();
+            services.AddDb(Environment.GetEnvironmentVariable("POSTGRES_STRING"));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Vulder.Admin.Api", Version = "v1" });
