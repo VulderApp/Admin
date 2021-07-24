@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Vulder.Admin.Core;
 using Vulder.Admin.Infrastructure;
 
 namespace Vulder.Admin.Api
@@ -39,6 +40,7 @@ namespace Vulder.Admin.Api
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
+            builder.RegisterModule(new DefaultCoreModule());
             builder.RegisterModule(new DefaultInfrastructureModule());
         }
 

@@ -8,7 +8,7 @@ namespace Vulder.Admin.Core.ProjectAggregate.User.Handlers
     public class NewUserHandler : INotificationHandler<NewUserEvent>
     {
         public Task Handle(NewUserEvent notification, CancellationToken cancellationToken)
-        {
+        {   
             
         }
     }
