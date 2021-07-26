@@ -1,0 +1,30 @@
+version: '3.9'
+services:
+  admin:
+    build: .
+    environment:
+      - 
+    ports:
+      - 80:80
+      - 433:433
+  postgresql:
+    image: postgres:13.3-alpine
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: db
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: 123
+    volumes:
+      - db-postgresql:/var/lib/postgresql/data
+  pgadmin:
+    image: dpage/pgadmin4:5.5
+    ports:
+      - 88:80
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=example@example.com
+      - PGADMIN_DEFAULT_PASSWORD=test
+volumes:
+  db-postgresql:
+    external: true
