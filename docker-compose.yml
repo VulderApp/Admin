@@ -2,8 +2,6 @@ version: '3.9'
 services:
   admin:
     build: .
-    environment:
-      - 
     ports:
       - 80:80
       - 433:433
