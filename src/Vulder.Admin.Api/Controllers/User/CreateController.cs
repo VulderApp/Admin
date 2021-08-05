@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Vulder.Admin.Api.Models;
+using Vulder.Admin.Infrastructure.Data;
+using Vulder.Admin.Infrastructure.Handlers.User;
 
 namespace Vulder.Admin.Api.Controllers.User
 {
@@ -10,10 +14,18 @@ namespace Vulder.Admin.Api.Controllers.User
     [Route("user/[controller]")]
     public class CreateController : ControllerBase
     {
-        [HttpPost]
-        public async Task<IActionResult> Post()
+        private readonly IMediator _mediator;
+        
+        public CreateController(IMediator mediator)
         {
-            return Ok();
+            _mediator = mediator;
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody]UserCreate userCreate)
+        {
+            var user = await _mediator.Send(new Core.ProjectAggregate.User.User().CreateTimestamp().GenerateGuid());
+            return Ok(user);
         }
     }
 }

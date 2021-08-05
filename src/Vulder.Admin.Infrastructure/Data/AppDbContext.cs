@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Vulder.Admin.Core.ProjectAggregate.School;
+using Vulder.Admin.Core.ProjectAggregate.User;
 using Vulder.SharedKernel;
 
 namespace Vulder.Admin.Infrastructure.Data
@@ -14,8 +13,10 @@ namespace Vulder.Admin.Infrastructure.Data
     public class AppDbContext : DbContext
     {
         private readonly IMediator _mediator;
+        public DbSet<User> Users { get; set; }
+        public DbSet<School> Schools { get; set; }
 
-        public AppDbContext(IMediator mediator)
+        public AppDbContext(IMediator mediator, DbContextOptions<AppDbContext> options) : base(options)
         {
             _mediator = mediator;
         }
@@ -27,7 +28,7 @@ namespace Vulder.Admin.Infrastructure.Data
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
-        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
         {
             var result = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 

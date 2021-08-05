@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection;
 using Autofac;
 using MediatR;
 using MediatR.Pipeline;
+using Vulder.Admin.Core.ProjectAggregate.School;
+using Vulder.Admin.Core.ProjectAggregate.User;
 using Vulder.Admin.Infrastructure.Data;
+using Vulder.Admin.Infrastructure.Handlers.User;
 using Vulder.SharedKernel.Interface;
 using Module = Autofac.Module;
 
@@ -12,22 +14,25 @@ namespace Vulder.Admin.Infrastructure
 {
     public class DefaultInfrastructureModule : Module
     {
-        private readonly List<Assembly> _assemblies = new List<Assembly>();
+        private readonly List<Assembly> _assemblies = new();
 
+        public DefaultInfrastructureModule()
+        {
+            _assemblies.Add(Assembly.GetAssembly(typeof(School)));
+            _assemblies.Add(Assembly.GetAssembly(typeof(User)));
+            _assemblies.Add(Assembly.GetAssembly(typeof(StartupSetup)));
+            _assemblies.Add(Assembly.GetAssembly(typeof(NewUserRequestHandler)));
+        }
+        
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<Mediator>()
-                .As<IMediator>()
-                .InstancePerLifetimeScope();
-
             builder.RegisterGeneric(typeof(EfRepository<>))
                 .As(typeof(IRepository<>))
                 .InstancePerLifetimeScope();
 
-            builder.Register<ServiceFactory>(context =>
-            {
-                return t => context.Resolve<IComponentContext>().Resolve(t);
-            });
+            builder.RegisterType<Mediator>()
+                .As<IMediator>()
+                .InstancePerLifetimeScope();
 
             var mediatROpenTypes = new[]
             {
@@ -35,6 +40,7 @@ namespace Vulder.Admin.Infrastructure
                 typeof(IRequestExceptionHandler<,,>),
                 typeof(IRequestExceptionHandler<,>),
                 typeof(INotificationHandler<>),
+                typeof(IRequest<>)
             };
 
             foreach (var mediatROpenType in mediatROpenTypes)
@@ -43,7 +49,12 @@ namespace Vulder.Admin.Infrastructure
                     .AsClosedTypesOf(mediatROpenType)
                     .AsImplementedInterfaces();
             }
-
+            
+            builder.Register<ServiceFactory>(context =>
+            {
+                var c = context.Resolve<IComponentContext>();
+                return t => c.Resolve(t);
+            });
         }
     }
 }

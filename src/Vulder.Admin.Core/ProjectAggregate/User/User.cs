@@ -1,10 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using MediatR;
 using Vulder.SharedKernel;
+using Vulder.SharedKernel.Interface;
 
 namespace Vulder.Admin.Core.ProjectAggregate.User
 {
-    class User : BaseEntity
+    public class User : BaseEntity, IAggregateRoot, IRequest<UserDto>
     {
         public string Email { get; set; }
         public string Password { get; set; }
