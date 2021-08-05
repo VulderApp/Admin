@@ -4,8 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Vulder.Admin.Core.ProjectAggregate.School;
-using Vulder.Admin.Core.ProjectAggregate.User;
 using Vulder.SharedKernel;
 
 namespace Vulder.Admin.Infrastructure.Data
@@ -13,12 +11,14 @@ namespace Vulder.Admin.Infrastructure.Data
     public class AppDbContext : DbContext
     {
         private readonly IMediator _mediator;
-        public DbSet<User> Users { get; set; }
-        public DbSet<School> Schools { get; set; }
 
-        public AppDbContext(IMediator mediator, DbContextOptions<AppDbContext> options) : base(options)
+        public AppDbContext(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        {
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
