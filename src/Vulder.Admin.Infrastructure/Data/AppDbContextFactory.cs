@@ -9,7 +9,8 @@ namespace Vulder.Admin.Infrastructure.Data
         public AppDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-            optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("POSTGRES_STRING") ?? "postgresql://test:123@localhost:5432/admin");
+            optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("POSTGRES_STRING") 
+                                     ?? "Server=localhost;Database=admin;Uid=test;Pwd=123;");
 
             return new AppDbContext(optionsBuilder.Options);
         }

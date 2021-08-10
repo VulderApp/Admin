@@ -6,8 +6,9 @@ using MediatR.Pipeline;
 using Vulder.Admin.Core.ProjectAggregate.School;
 using Vulder.Admin.Core.ProjectAggregate.User;
 using Vulder.Admin.Infrastructure.Data;
+using Vulder.Admin.Infrastructure.Data.Interfaces;
+using Vulder.Admin.Infrastructure.Data.Repositories;
 using Vulder.Admin.Infrastructure.Handlers.User;
-using Vulder.SharedKernel.Interface;
 using Module = Autofac.Module;
 
 namespace Vulder.Admin.Infrastructure
@@ -15,23 +16,28 @@ namespace Vulder.Admin.Infrastructure
     public class DefaultInfrastructureModule : Module
     {
         private readonly List<Assembly> _assemblies = new();
+        private readonly string _postgresConnectionString;
 
-        public DefaultInfrastructureModule()
+        public DefaultInfrastructureModule(string postgresConnectionString)
         {
+            _postgresConnectionString = postgresConnectionString;
             _assemblies.Add(Assembly.GetAssembly(typeof(School)));
             _assemblies.Add(Assembly.GetAssembly(typeof(User)));
-            _assemblies.Add(Assembly.GetAssembly(typeof(StartupSetup)));
             _assemblies.Add(Assembly.GetAssembly(typeof(NewUserRequestHandler)));
         }
         
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterGeneric(typeof(EfRepository<>))
-                .As(typeof(IRepository<>))
+            builder.RegisterType<UserRepository>()
+                .As(typeof(IUserRepository))
                 .InstancePerLifetimeScope();
 
             builder.RegisterType<Mediator>()
                 .As<IMediator>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<AppDbContext>()
+                .WithParameter("connectionString", _postgresConnectionString)
                 .InstancePerLifetimeScope();
 
             var mediatROpenTypes = new[]

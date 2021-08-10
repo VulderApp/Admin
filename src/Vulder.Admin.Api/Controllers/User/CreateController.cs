@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Vulder.Admin.Api.Models;
-using Vulder.Admin.Infrastructure.Data;
-using Vulder.Admin.Infrastructure.Handlers.User;
 
 namespace Vulder.Admin.Api.Controllers.User
 {
@@ -22,9 +16,15 @@ namespace Vulder.Admin.Api.Controllers.User
         }
         
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]UserCreate userCreate)
+        public async Task<IActionResult> Post([FromBody]Models.User userCreate)
         {
-            var user = await _mediator.Send(new Core.ProjectAggregate.User.User().CreateTimestamp().GenerateGuid());
+            var user = await _mediator.Send(
+                new Core.ProjectAggregate.User.User(userCreate.Email)
+                    .CreateTimestamp()
+                    .GenerateGuid()
+                    .GeneratePasswordHash(userCreate.Password)
+            );
+            
             return Ok(user);
         }
     }

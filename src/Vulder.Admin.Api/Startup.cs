@@ -1,11 +1,15 @@
 using System;
 using Autofac;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Vulder.Admin.Api.Models;
+using Vulder.Admin.Api.Validators;
 using Vulder.Admin.Core;
 using Vulder.Admin.Infrastructure;
 
@@ -23,8 +27,12 @@ namespace Vulder.Admin.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddNewtonsoftJson();
-            services.AddDb(Environment.GetEnvironmentVariable("POSTGRES_STRING") ?? Configuration["Postgres:ConnectionString"]);
+            services.AddControllers()
+                .AddNewtonsoftJson()
+                .AddFluentValidation();
+            
+            // Validation models
+            services.AddTransient<IValidator<User>, UserValidator>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Vulder.Admin.Api", Version = "v1" });
@@ -33,8 +41,10 @@ namespace Vulder.Admin.Api
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            builder.RegisterModule(new DefaultCoreModule());
-            builder.RegisterModule(new DefaultInfrastructureModule());
+            builder.RegisterModule(new DefaultInfrastructureModule(
+               Environment.GetEnvironmentVariable("POSTGRES_CONNECTION")
+               ?? Configuration["Postgres:ConnectionString"])
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

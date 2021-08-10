@@ -2,15 +2,15 @@
 using System.Threading.Tasks;
 using MediatR;
 using Vulder.Admin.Core.ProjectAggregate.User;
-using Vulder.Admin.Infrastructure.Data;
+using Vulder.Admin.Infrastructure.Data.Interfaces;
 
 namespace Vulder.Admin.Infrastructure.Handlers.User
 {
     public class NewUserRequestHandler : IRequestHandler<Core.ProjectAggregate.User.User, UserDto>
     {
-        private readonly EfRepository<Core.ProjectAggregate.User.User> _userRepository;
+        private readonly IUserRepository _userRepository;
         
-        public NewUserRequestHandler(EfRepository<Core.ProjectAggregate.User.User> userRepository)
+        public NewUserRequestHandler(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
