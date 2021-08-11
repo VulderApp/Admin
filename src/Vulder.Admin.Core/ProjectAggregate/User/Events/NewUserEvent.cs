@@ -9,7 +9,7 @@ namespace Vulder.Admin.Core.ProjectAggregate.User.Events
 {
     public class NewUserEvent : BaseDomainEvent
     {
-        private NewUser NewUser { get; set; }
+        public NewUser NewUser { get; set; }
 
         public NewUserEvent(NewUser user)
         {

@@ -1,54 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
+﻿using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Vulder.SharedKernel;
+using Vulder.Admin.Core.ProjectAggregate.School;
+using Vulder.Admin.Core.ProjectAggregate.User;
 
 namespace Vulder.Admin.Infrastructure.Data
 {
     public class AppDbContext : DbContext
     {
-        private readonly IMediator _mediator;
-
-        public AppDbContext(IMediator mediator)
+        private readonly string _postgresConnectionString;
+        public DbSet<User> Users { get; set; }
+        public DbSet<School> Schools { get; set; }
+        
+        public AppDbContext(string postgresConnectionString)
         {
-            _mediator = mediator;
+            _postgresConnectionString = postgresConnectionString;
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+            => optionsBuilder.UseNpgsql(_postgresConnectionString);
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-        }
-
-        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
-        {
-            var result = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-
-            if (_mediator == null) return result;
-
-            var entitiesWithEvents = ChangeTracker.Entries<BaseEntity>()
-                .Select(e => e.Entity)
-                .Where(e => e.Events.Any())
-                .ToArray();
-
-            foreach (var entity in entitiesWithEvents)
-            {
-                var events = entity.Events.ToArray();
-                entity.Events.Clear();
-                foreach (var domainEvent in events)
-                {
-                    await _mediator.Publish(domainEvent, cancellationToken).ConfigureAwait(false);
-                }
-            }
-
-            return result;
         }
 
         public override int SaveChanges()

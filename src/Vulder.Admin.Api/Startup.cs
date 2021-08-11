@@ -1,18 +1,15 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Autofac;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using Vulder.Admin.Core;
+using Vulder.Admin.Core.Models;
+using Vulder.Admin.Core.Validators;
 using Vulder.Admin.Infrastructure;
 
 namespace Vulder.Admin.Api
@@ -29,9 +26,12 @@ namespace Vulder.Admin.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddControllers();
-            services.AddDb(Environment.GetEnvironmentVariable("POSTGRES_STRING"));
+            services.AddControllers()
+                .AddNewtonsoftJson()
+                .AddFluentValidation();
+            
+            // Validation models
+            services.AddTransient<IValidator<User>, UserValidator>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Vulder.Admin.Api", Version = "v1" });
@@ -40,8 +40,10 @@ namespace Vulder.Admin.Api
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            builder.RegisterModule(new DefaultCoreModule());
-            builder.RegisterModule(new DefaultInfrastructureModule());
+            builder.RegisterModule(new DefaultInfrastructureModule(
+               Environment.GetEnvironmentVariable("POSTGRES_CONNECTION")
+               ?? Configuration["Postgres:ConnectionString"])
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
