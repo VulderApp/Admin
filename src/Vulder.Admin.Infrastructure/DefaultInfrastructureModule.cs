@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using Autofac;
 using MediatR;
 using MediatR.Pipeline;
+using Microsoft.EntityFrameworkCore;
 using Vulder.Admin.Core.ProjectAggregate.School;
 using Vulder.Admin.Core.ProjectAggregate.User;
 using Vulder.Admin.Infrastructure.Data;
@@ -25,7 +27,7 @@ namespace Vulder.Admin.Infrastructure
             _assemblies.Add(Assembly.GetAssembly(typeof(User)));
             _assemblies.Add(Assembly.GetAssembly(typeof(NewUserRequestHandler)));
         }
-        
+
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<UserRepository>()
@@ -37,7 +39,7 @@ namespace Vulder.Admin.Infrastructure
                 .InstancePerLifetimeScope();
 
             builder.RegisterType<AppDbContext>()
-                .WithParameter("connectionString", _postgresConnectionString)
+                .WithParameter("postgresConnectionString", _postgresConnectionString)
                 .InstancePerLifetimeScope();
 
             var mediatROpenTypes = new[]

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using MediatR;
 using Vulder.Admin.Core.Utils;
 using Vulder.SharedKernel;
@@ -12,8 +11,7 @@ namespace Vulder.Admin.Core.ProjectAggregate.User
         public string Email { get; set; }
         public string Password { get; set; }
         
-        [Timestamp]
-        public DateTime CreatedAt { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
         
         public Guid[] SchoolCollection { get; set; }
 
@@ -36,7 +34,7 @@ namespace Vulder.Admin.Core.ProjectAggregate.User
 
         public User CreateTimestamp()
         {
-            CreatedAt = DateTime.UtcNow;
+            CreatedAt = DateTimeOffset.Now;
             return this;
         }
     }

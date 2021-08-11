@@ -8,29 +8,31 @@ namespace Vulder.Admin.Infrastructure.Data.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly DbSet<User> _users;
+        private readonly AppDbContext _context;
 
         public UserRepository(AppDbContext context)
         {
-            _users = context.Users;
+            _context = context;
         }
 
         public async Task<User> AddAsync(User entity)
         {
-            await _users.AddAsync(entity);
+            await _context.Users.AddAsync(entity);
+            await _context.SaveChangesAsync();
             return entity;
         }
 
-        public Task UpdateAsync(User entity)
+        public async Task UpdateAsync(User entity)
         {
-            _users.Update(entity);
-            return Task.CompletedTask;
+            _context.Users.Update(entity);
+            await _context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(string hashedPassword)
         {
-            var user = await _users.OrderBy(e => e.Email).Where(e => e.Password == hashedPassword).FirstAsync();
-            _users.Remove(user);
+            var user = await _context.Users.OrderBy(e => e.Email).Where(e => e.Password == hashedPassword).FirstAsync();
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
         }
     }
 }

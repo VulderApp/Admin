@@ -10,26 +10,17 @@ namespace Vulder.Admin.Infrastructure.Data
 {
     public class AppDbContext : DbContext
     {
-        private readonly IMediator _mediator;
-        private readonly string _postgresConnection;
+        private readonly string _postgresConnectionString;
         public DbSet<User> Users { get; set; }
         public DbSet<School> Schools { get; set; }
-
-        public AppDbContext(IMediator mediator, string connectionString)
+        
+        public AppDbContext(string postgresConnectionString)
         {
-            _mediator = mediator;
-            _postgresConnection = connectionString;
-        }
-
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
-        {
+            _postgresConnectionString = postgresConnectionString;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseNpgsql(_postgresConnection,
-                b => b.MigrationsAssembly("Vulder.Admin.Infrastructure"));
-        }
+            => optionsBuilder.UseNpgsql(_postgresConnectionString);
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -37,9 +28,6 @@ namespace Vulder.Admin.Infrastructure.Data
 
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
-
-        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
-            => await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
         public override int SaveChanges()
         {
