@@ -1,4 +1,4 @@
-﻿namespace Vulder.Admin.Api.Models
+﻿namespace Vulder.Admin.Core.Models
 {
     public class User
     {

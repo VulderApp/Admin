@@ -1,7 +1,7 @@
 using FluentValidation;
-using Vulder.Admin.Api.Models;
+using Vulder.Admin.Core.Models;
 
-namespace Vulder.Admin.Api.Validators
+namespace Vulder.Admin.Core.Validators
 {
     public class UserValidator : AbstractValidator<User>
     {

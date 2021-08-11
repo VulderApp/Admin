@@ -8,9 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Vulder.Admin.Api.Models;
-using Vulder.Admin.Api.Validators;
-using Vulder.Admin.Core;
+using Vulder.Admin.Core.Models;
+using Vulder.Admin.Core.Validators;
 using Vulder.Admin.Infrastructure;
 
 namespace Vulder.Admin.Api

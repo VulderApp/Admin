@@ -19,4 +19,10 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Vulder.Admin.Api\Vulder.Admin.Api.csproj" />
+    <ProjectReference Include="..\..\src\Vulder.Admin.Core\Vulder.Admin.Core.csproj" />
+    <ProjectReference Include="..\..\src\Vulder.Admin.Infrastructure\Vulder.Admin.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

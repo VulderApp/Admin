@@ -16,7 +16,7 @@ namespace Vulder.Admin.Api.Controllers.User
         }
         
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]Models.User userCreate)
+        public async Task<IActionResult> Post([FromBody]Core.Models.User userCreate)
         {
             var user = await _mediator.Send(
                 new Core.ProjectAggregate.User.User(userCreate.Email)
