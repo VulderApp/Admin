@@ -1,10 +1,12 @@
 ﻿using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Vulder.Admin.Api.Controllers.User
 {
     [ApiController]
+    [Authorize]
     [Route("user/[controller]")]
     public class CreateController : ControllerBase
     {
@@ -15,15 +17,17 @@ namespace Vulder.Admin.Api.Controllers.User
             _mediator = mediator;
         }
         
+        [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]Core.Models.User userCreate)
+        public async Task<IActionResult> Post([FromBody]Core.Models.User userModel)
         {
             var user = await _mediator.Send(
-                new Core.ProjectAggregate.User.User(userCreate.Email)
+                new Core.ProjectAggregate.User.User(userModel.Email)
                     .CreateTimestamp()
                     .GenerateGuid()
-                    .GeneratePasswordHash(userCreate.Password)
+                    .GeneratePasswordHash(userModel.Password)
             );
+            
             
             return Ok(user);
         }

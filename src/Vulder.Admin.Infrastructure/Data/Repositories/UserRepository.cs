@@ -15,6 +15,11 @@ namespace Vulder.Admin.Infrastructure.Data.Repositories
             _context = context;
         }
 
+        public async Task<User> GetUserByEmail(string email)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+        }
+
         public async Task<User> AddAsync(User entity)
         {
             await _context.Users.AddAsync(entity);
