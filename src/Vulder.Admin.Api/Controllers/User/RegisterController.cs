@@ -2,19 +2,22 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Vulder.Admin.Core.Interfaces;
 
 namespace Vulder.Admin.Api.Controllers.User
 {
     [ApiController]
     [Authorize]
     [Route("user/[controller]")]
-    public class CreateController : ControllerBase
+    public class RegisterController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IJwtService _jwtService;
         
-        public CreateController(IMediator mediator)
+        public RegisterController(IMediator mediator, IJwtService jwtService)
         {
             _mediator = mediator;
+            _jwtService = jwtService;
         }
         
         [AllowAnonymous]
@@ -28,8 +31,7 @@ namespace Vulder.Admin.Api.Controllers.User
                     .GeneratePasswordHash(userModel.Password)
             );
             
-            
-            return Ok(user);
+            return Ok(_jwtService.GenerateToken(user));
         }
     }
 }
