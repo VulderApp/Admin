@@ -7,11 +7,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Vulder.Admin.Core;
+using Vulder.Admin.Core.Interfaces;
 using Vulder.Admin.Core.Models;
 using Vulder.Admin.Core.Validators;
 using Vulder.Admin.Infrastructure;
+using Vulder.Admin.Infrastructure.Configurations;
 
 namespace Vulder.Admin.Api
 {
@@ -27,6 +30,10 @@ namespace Vulder.Admin.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<AuthConfiguration>(Configuration.GetSection("Auth"));
+            services.AddSingleton<IAuthConfiguration>(sp => 
+                sp.GetRequiredService<IOptions<AuthConfiguration>>().Value);
+            
             services.AddControllers()
                 .AddNewtonsoftJson()
                 .AddFluentValidation();

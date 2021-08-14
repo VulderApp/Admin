@@ -5,6 +5,6 @@ namespace Vulder.Admin.Core.Interfaces
 {
     public interface IJwtService
     {
-        string GenerateToken(UserDto user);
+        string GetGeneratedToken(UserDto user);
     }
 }

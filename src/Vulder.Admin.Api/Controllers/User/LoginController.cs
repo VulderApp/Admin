@@ -23,7 +23,7 @@ namespace Vulder.Admin.Api.Controllers.User
         public async Task<IActionResult> Post([FromBody] Core.Models.User user)
         {
             var userDto = await _mediator.Send(user);
-            return Ok(_jwtService.GenerateToken(userDto));
+            return Ok(_jwtService.GetGeneratedToken(userDto));
         }
     }
 }

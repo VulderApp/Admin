@@ -31,7 +31,7 @@ namespace Vulder.Admin.Api.Controllers.User
                     .GeneratePasswordHash(userModel.Password)
             );
             
-            return Ok(_jwtService.GenerateToken(user));
+            return Ok(_jwtService.GetGeneratedToken(user));
         }
     }
 }
