@@ -1,6 +1,9 @@
-﻿namespace Vulder.Admin.Core.Models
+﻿using MediatR;
+using Vulder.Admin.Core.ProjectAggregate.User;
+
+namespace Vulder.Admin.Core.Models
 {
-    public class User
+    public class User : IRequest<UserDto>
     {
         public string Email { get; set; }
         public string Password { get; set; }
