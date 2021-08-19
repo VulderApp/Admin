@@ -20,6 +20,8 @@ namespace Vulder.Admin.Api
 {
     public class Startup
     {
+        private const string CorsPolicyName = "Admin";
+        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -33,6 +35,17 @@ namespace Vulder.Admin.Api
             services.Configure<AuthConfiguration>(Configuration.GetSection("Auth"));
             services.AddSingleton<IAuthConfiguration>(sp => 
                 sp.GetRequiredService<IOptions<AuthConfiguration>>().Value);
+            
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: CorsPolicyName,
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:3000/")
+                            .AllowAnyMethod()
+                            .AllowAnyHeader();
+                    });
+            });
             
             services.AddControllers()
                 .AddNewtonsoftJson()
@@ -70,6 +83,8 @@ namespace Vulder.Admin.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(CorsPolicyName);
 
             app.UseAuthorization();
 
