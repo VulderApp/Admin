@@ -9,21 +9,20 @@ namespace Vulder.Admin.Api.Controllers.User
     [Route("user/[controller]")]
     public class LoginController : ControllerBase
     {
-        private readonly IJwtService _jwtService;
         private readonly IMediator _mediator;
-
-
-        public LoginController(IMediator mediator, IJwtService jwtService)
+        private readonly IJwtGenerationService _jwtGenerationService;
+        
+        public LoginController(IMediator mediator, IJwtGenerationService jwtGenerationService)
         {
             _mediator = mediator;
-            _jwtService = jwtService;
+            _jwtGenerationService = jwtGenerationService;
         }
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Core.Models.User user)
         {
             var userDto = await _mediator.Send(user);
-            return Ok(_jwtService.GetGeneratedToken(userDto));
+            return Ok(_jwtGenerationService.GetGeneratedJwtToken(userDto));
         }
     }
 }
