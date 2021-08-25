@@ -7,14 +7,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
-using Vulder.Admin.Core;
-using Vulder.Admin.Core.Interfaces;
 using Vulder.Admin.Core.Models;
 using Vulder.Admin.Core.Validators;
 using Vulder.Admin.Infrastructure;
-using Vulder.Admin.Infrastructure.Configurations;
+using Vulder.Admin.Infrastructure.Configuration;
 
 namespace Vulder.Admin.Api
 {
@@ -33,9 +30,7 @@ namespace Vulder.Admin.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<AuthConfiguration>(Configuration.GetSection("Auth"));
-            services.AddSingleton<IAuthConfiguration>(sp => 
-                sp.GetRequiredService<IOptions<AuthConfiguration>>().Value);
-            
+
             services.AddCors(options =>
             {
                 options.AddPolicy(name: CorsPolicyName,
@@ -50,11 +45,8 @@ namespace Vulder.Admin.Api
             services.AddControllers()
                 .AddNewtonsoftJson()
                 .AddFluentValidation();
+            services.AddModelsToValidate();
             
-            // Validation models
-            services.AddTransient<IValidator<User>, UserValidator>();
-            services.AddJwtAuth(Configuration);
-
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Vulder.Admin.Api", Version = "v1" });
@@ -67,7 +59,6 @@ namespace Vulder.Admin.Api
                Environment.GetEnvironmentVariable("POSTGRES_CONNECTION")
                ?? Configuration["Postgres:ConnectionString"])
             );
-            builder.RegisterModule(new DefaultCoreModule());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

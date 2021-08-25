@@ -8,7 +8,7 @@ using Vulder.Admin.Infrastructure.Data.Interfaces;
 
 namespace Vulder.Admin.Infrastructure.Handlers.User
 {
-    public class UserLoginRequestHandler : IRequestHandler<Core.Models.User, UserDto>
+    public class UserLoginRequestHandler : IRequestHandler<Core.Models.UserModel, UserDto>
     {
         private readonly IUserRepository _userRepository;
         
@@ -17,7 +17,7 @@ namespace Vulder.Admin.Infrastructure.Handlers.User
             _userRepository = userRepository;
         }
         
-        public async Task<UserDto> Handle(Core.Models.User request, CancellationToken cancellationToken)
+        public async Task<UserDto> Handle(Core.Models.UserModel request, CancellationToken cancellationToken)
         {
             var entity = await _userRepository.GetUserByEmail(request.Email);
             if (string.IsNullOrEmpty(entity.Id.ToString()))

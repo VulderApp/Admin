@@ -3,7 +3,7 @@ using Vulder.Admin.Core.ProjectAggregate.User;
 
 namespace Vulder.Admin.Core.Models
 {
-    public class User : IRequest<UserDto>
+    public class UserModel : IRequest<UserDto>
     {
         public string Email { get; set; }
         public string Password { get; set; }

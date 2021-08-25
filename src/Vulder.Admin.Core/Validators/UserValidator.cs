@@ -3,7 +3,7 @@ using Vulder.Admin.Core.Models;
 
 namespace Vulder.Admin.Core.Validators
 {
-    public class UserValidator : AbstractValidator<User>
+    public class UserValidator : AbstractValidator<UserModel>
     {
         public UserValidator()
         {

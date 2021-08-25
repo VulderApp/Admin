@@ -1,39 +1,36 @@
 using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using Microsoft.IdentityModel.Tokens;
+using JWT.Algorithms;
+using JWT.Builder;
+using Microsoft.Extensions.Configuration;
 using Vulder.Admin.Core.Interfaces;
+using Vulder.Admin.Core.Models;
 using Vulder.Admin.Core.ProjectAggregate.User;
 
 namespace Vulder.Admin.Core.Services
 {
-    public class JwtService : IJwtService
+    public class JwtGenerationService : IJwtService
     {
         private readonly IAuthConfiguration _configuration;
         
-        public JwtService(IAuthConfiguration configuration)
+        public JwtGenerationService(IAuthConfiguration configuration)
         {
             _configuration = configuration;
         }
 
-        public string GetGeneratedToken(UserDto user)
-        {
-            var credentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.Key)),
-                SecurityAlgorithms.HmacSha512Signature);
-            var token = new JwtSecurityToken(
-                _configuration.Issuer,
-                _configuration.Audience,
-                new []
-                {
-                    new Claim(ClaimTypes.Email, user.Email)
-                },
-                DateTime.Now,
-                DateTime.Now.AddDays(1),
-                credentials
-                );
+        public string GetGeneratedJwtToken(UserDto userDto)
+            => JwtBuilder.Create()
+                .WithAlgorithm(new HMACSHA512Algorithm())
+                .WithSecret(_configuration.Key)
+                .AddClaim(ClaimName.JwtId, userDto.Id)
+                .AddClaim(ClaimName.Address, userDto.Email)
+                .AddClaim(ClaimName.ExpirationTime, DateTimeOffset.UtcNow.AddHours(1).ToUnixTimeSeconds())
+                .Encode();
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
+        public JwtModel GetUserDataFromJwtToken(string token)
+            => JwtBuilder.Create()
+                .WithAlgorithm(new HMACSHA512Algorithm())
+                .WithSecret(_configuration.Key)
+                .MustVerifySignature()
+                .Decode<JwtModel>(token);
     }
 }

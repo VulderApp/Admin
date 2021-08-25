@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vulder.Admin.Core.Interfaces;
+using Vulder.Admin.Core.Services;
 
 namespace Vulder.Admin.Api.Controllers.User
 {
@@ -13,16 +14,16 @@ namespace Vulder.Admin.Api.Controllers.User
     {
         private readonly IMediator _mediator;
         private readonly IJwtService _jwtService;
-        
+
         public RegisterController(IMediator mediator, IJwtService jwtService)
         {
             _mediator = mediator;
             _jwtService = jwtService;
         }
         
-        [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]Core.Models.User userModel)
+        [AllowAnonymous]
+        public async Task<IActionResult> Post([FromBody]Core.Models.UserModel userModel)
         {
             var user = await _mediator.Send(
                 new Core.ProjectAggregate.User.User(userModel.Email)
@@ -31,7 +32,7 @@ namespace Vulder.Admin.Api.Controllers.User
                     .GeneratePasswordHash(userModel.Password)
             );
             
-            return Ok(_jwtService.GetGeneratedToken(user));
+            return Ok(_jwtService.GetGeneratedJwtToken(user));
         }
     }
 }
