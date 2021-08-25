@@ -2,7 +2,6 @@ using System;
 using Autofac;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using JWT;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -43,13 +42,10 @@ namespace Vulder.Admin.Api
                     });
             });
             
-            services.AddDefaultJwt(Configuration);
             services.AddControllers()
                 .AddNewtonsoftJson()
                 .AddFluentValidation();
-
-            // Validation models
-            services.AddTransient<IValidator<User>, UserValidator>();
+            services.AddModelsToValidate();
             
             services.AddSwaggerGen(c =>
             {
@@ -84,8 +80,6 @@ namespace Vulder.Admin.Api
             app.UseAuthorization();
 
             app.UseAuthentication();
-            
-            app.UseJwtMiddleware();
 
             app.UseEndpoints(endpoints =>
             {

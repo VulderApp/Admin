@@ -13,16 +13,16 @@ namespace Vulder.Admin.Api.Controllers.User
     public class RegisterController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly IJwtGenerationService _jwtGenerationService;
+        private readonly IJwtService _jwtService;
 
-        public RegisterController(IMediator mediator, IJwtGenerationService jwtGenerationService)
+        public RegisterController(IMediator mediator, IJwtService jwtService)
         {
             _mediator = mediator;
-            _jwtGenerationService = jwtGenerationService;
+            _jwtService = jwtService;
         }
         
-        [AllowAnonymous]
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Post([FromBody]Core.Models.User userModel)
         {
             var user = await _mediator.Send(
@@ -32,7 +32,7 @@ namespace Vulder.Admin.Api.Controllers.User
                     .GeneratePasswordHash(userModel.Password)
             );
             
-            return Ok(_jwtGenerationService.GetGeneratedJwtToken(user));
+            return Ok(_jwtService.GetGeneratedJwtToken(user));
         }
     }
 }

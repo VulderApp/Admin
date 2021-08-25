@@ -1,28 +1,31 @@
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vulder.Admin.Core.Interfaces;
 
 namespace Vulder.Admin.Api.Controllers.User
 {
     [ApiController]
+    [Authorize]
     [Route("user/[controller]")]
     public class LoginController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly IJwtGenerationService _jwtGenerationService;
+        private readonly IJwtService _jwtService;
         
-        public LoginController(IMediator mediator, IJwtGenerationService jwtGenerationService)
+        public LoginController(IMediator mediator, IJwtService jwtService)
         {
             _mediator = mediator;
-            _jwtGenerationService = jwtGenerationService;
+            _jwtService = jwtService;
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Post([FromBody] Core.Models.User user)
         {
             var userDto = await _mediator.Send(user);
-            return Ok(_jwtGenerationService.GetGeneratedJwtToken(userDto));
+            return Ok(_jwtService.GetGeneratedJwtToken(userDto));
         }
     }
 }

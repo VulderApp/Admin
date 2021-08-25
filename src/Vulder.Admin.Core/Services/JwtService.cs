@@ -7,7 +7,7 @@ using Vulder.Admin.Core.ProjectAggregate.User;
 
 namespace Vulder.Admin.Core.Services
 {
-    public class JwtGenerationService : IJwtGenerationService
+    public class JwtGenerationService : IJwtService
     {
         private readonly IAuthConfiguration _configuration;
         
@@ -24,5 +24,12 @@ namespace Vulder.Admin.Core.Services
                 .AddClaim(ClaimName.Address, userDto.Email)
                 .AddClaim(ClaimName.ExpirationTime, DateTimeOffset.UtcNow.AddHours(1).ToUnixTimeSeconds())
                 .Encode();
+
+        public string GetUserDataFromJwtToken(string token)
+            => JwtBuilder.Create()
+                .WithAlgorithm(new HMACSHA512Algorithm())
+                .WithSecret(_configuration.Key)
+                .MustVerifySignature()
+                .Decode(token);
     }
 }
