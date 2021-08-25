@@ -9,7 +9,7 @@ namespace Vulder.Admin.Infrastructure
     {
         public static void AddModelsToValidate(this IServiceCollection services)
         {
-            services.AddTransient<IValidator<User>, UserValidator>();
+            services.AddTransient<IValidator<UserModel>, UserValidator>();
         }
     }
 }

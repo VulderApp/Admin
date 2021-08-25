@@ -1,4 +1,5 @@
 using System;
+using Vulder.Admin.Core.Models;
 using Vulder.Admin.Core.ProjectAggregate.User;
 using Vulder.Admin.Core.Services;
 using Vulder.Admin.Infrastructure.Configuration;
@@ -21,16 +22,20 @@ namespace Vulder.Admin.Test.Core.Services
         }
 
         [Fact]
-        public void GenerateJwt_CheckIfNotEmptyAndIsTypeString()
+        public void GenerateJwt_CheckIfIsTypeJwtModelAndEqualsWithUserDtoIdEmail()
         {
-            var result = _jwtService.GetGeneratedJwtToken(new UserDto
+            var userDto = new UserDto
             {
                 Id = Guid.NewGuid(),
                 Email = "example@example.com"
-            });
+            };
             
-            Assert.IsType<string>(result);
-            Assert.NotEmpty(result);
+            var jwtToken = _jwtService.GetGeneratedJwtToken(userDto);
+            var result = _jwtService.GetUserDataFromJwtToken(jwtToken);
+            
+            Assert.IsType<JwtModel>(result);
+            Assert.Equal(userDto.Id.ToString(), result.Id);
+            Assert.Equal(userDto.Email, result.Email);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Vulder.Admin.Test.Core.Validators
         [Fact]
         public void CheckUserValidation()
         {
-            var model = new User
+            var model = new UserModel
             {
                 Email = "example@example.com",
                 Password = "example123!!@#"

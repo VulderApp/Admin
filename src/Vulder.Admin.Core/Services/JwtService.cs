@@ -3,6 +3,7 @@ using JWT.Algorithms;
 using JWT.Builder;
 using Microsoft.Extensions.Configuration;
 using Vulder.Admin.Core.Interfaces;
+using Vulder.Admin.Core.Models;
 using Vulder.Admin.Core.ProjectAggregate.User;
 
 namespace Vulder.Admin.Core.Services
@@ -25,11 +26,11 @@ namespace Vulder.Admin.Core.Services
                 .AddClaim(ClaimName.ExpirationTime, DateTimeOffset.UtcNow.AddHours(1).ToUnixTimeSeconds())
                 .Encode();
 
-        public string GetUserDataFromJwtToken(string token)
+        public JwtModel GetUserDataFromJwtToken(string token)
             => JwtBuilder.Create()
                 .WithAlgorithm(new HMACSHA512Algorithm())
                 .WithSecret(_configuration.Key)
                 .MustVerifySignature()
-                .Decode(token);
+                .Decode<JwtModel>(token);
     }
 }

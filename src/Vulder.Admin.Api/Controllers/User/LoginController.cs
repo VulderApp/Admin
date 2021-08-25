@@ -22,7 +22,7 @@ namespace Vulder.Admin.Api.Controllers.User
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Post([FromBody] Core.Models.User user)
+        public async Task<IActionResult> Post([FromBody] Core.Models.UserModel user)
         {
             var userDto = await _mediator.Send(user);
             return Ok(_jwtService.GetGeneratedJwtToken(userDto));

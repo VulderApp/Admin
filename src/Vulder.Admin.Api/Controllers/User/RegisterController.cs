@@ -23,7 +23,7 @@ namespace Vulder.Admin.Api.Controllers.User
         
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Post([FromBody]Core.Models.User userModel)
+        public async Task<IActionResult> Post([FromBody]Core.Models.UserModel userModel)
         {
             var user = await _mediator.Send(
                 new Core.ProjectAggregate.User.User(userModel.Email)
