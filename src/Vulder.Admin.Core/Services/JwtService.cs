@@ -1,36 +1,45 @@
 using System;
-using JWT.Algorithms;
-using JWT.Builder;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using Vulder.Admin.Core.Interfaces;
-using Vulder.Admin.Core.Models;
 using Vulder.Admin.Core.ProjectAggregate.User;
 
 namespace Vulder.Admin.Core.Services
 {
-    public class JwtGenerationService : IJwtService
+    public class JwtService : IJwtService
     {
-        private readonly IAuthConfiguration _configuration;
-        
-        public JwtGenerationService(IAuthConfiguration configuration)
+        private readonly IConfiguration _configuration;
+
+        public JwtService(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
         public string GetGeneratedJwtToken(UserDto userDto)
-            => JwtBuilder.Create()
-                .WithAlgorithm(new HMACSHA512Algorithm())
-                .WithSecret(_configuration.Key)
-                .AddClaim(ClaimName.JwtId, userDto.Id)
-                .AddClaim(ClaimName.Address, userDto.Email)
-                .AddClaim(ClaimName.ExpirationTime, DateTimeOffset.UtcNow.AddHours(1).ToUnixTimeSeconds())
-                .Encode();
-
-        public JwtModel GetUserDataFromJwtToken(string token)
-            => JwtBuilder.Create()
-                .WithAlgorithm(new HMACSHA512Algorithm())
-                .WithSecret(_configuration.Key)
-                .MustVerifySignature()
-                .Decode<JwtModel>(token);
+        {
+            var auth = _configuration.GetSection("Auth");
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[]
+                {
+                    new Claim("id", userDto.Id.ToString()),
+                    new Claim(ClaimTypes.Email, userDto.Email)
+                }),
+                Expires = DateTime.UtcNow.AddHours(2),
+                Issuer = auth["Issuer"],
+                SigningCredentials = new SigningCredentials(
+                    new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes(auth["Key"])
+                    ),
+                    SecurityAlgorithms.HmacSha512Signature
+                )
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
+        }
     }
 }

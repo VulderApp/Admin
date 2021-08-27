@@ -9,7 +9,7 @@ namespace Vulder.Admin.Core
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<JwtGenerationService>()
+            builder.RegisterType<JwtService>()
                 .As<IJwtService>()
                 .InstancePerLifetimeScope();
         }
