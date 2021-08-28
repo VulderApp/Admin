@@ -11,16 +11,15 @@ namespace Vulder.Admin.Core.Services
 {
     public class JwtService : IJwtService
     {
-        private readonly IConfiguration _configuration;
+        private readonly IAuthConfiguration _configuration;
 
-        public JwtService(IConfiguration configuration)
+        public JwtService(IAuthConfiguration configuration)
         {
             _configuration = configuration;
         }
 
         public string GetGeneratedJwtToken(UserDto userDto)
         {
-            var auth = _configuration.GetSection("Auth");
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -30,10 +29,10 @@ namespace Vulder.Admin.Core.Services
                     new Claim(ClaimTypes.Email, userDto.Email)
                 }),
                 Expires = DateTime.UtcNow.AddHours(2),
-                Issuer = auth["Issuer"],
+                Issuer = _configuration.Issuer,
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes(auth["Key"])
+                        Encoding.UTF8.GetBytes(_configuration.Key)
                     ),
                     SecurityAlgorithms.HmacSha512Signature
                 )

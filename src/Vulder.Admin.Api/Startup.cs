@@ -14,7 +14,6 @@ using Vulder.Admin.Core;
 using Vulder.Admin.Core.Models;
 using Vulder.Admin.Core.Validators;
 using Vulder.Admin.Infrastructure;
-using Vulder.Admin.Infrastructure.Configuration;
 
 namespace Vulder.Admin.Api
 {
@@ -32,7 +31,6 @@ namespace Vulder.Admin.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<AuthConfiguration>(Configuration.GetSection("Auth"));
             services.AddJwtDefault(Configuration);
             services.AddCors(options =>
             {
@@ -77,7 +75,7 @@ namespace Vulder.Admin.Api
                Environment.GetEnvironmentVariable("POSTGRES_CONNECTION")
                ?? Configuration["Postgres:ConnectionString"])
             );
-            builder.RegisterModule(new DefaultCoreModule());
+            builder.RegisterModule(new DefaultCoreModule(Configuration));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
