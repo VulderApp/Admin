@@ -93,10 +93,10 @@ namespace Vulder.Admin.Api
             app.UseRouting();
 
             app.UseCors(CorsPolicyName);
+            
+            app.UseAuthentication();
 
             app.UseAuthorization();
-
-            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

@@ -15,7 +15,8 @@ namespace Vulder.Admin.Test.Core.Services
             var authConfiguration = new AuthConfiguration
             {
                 Key = "wV7unQu7Uj+2vN8ve76BZcYpPLivN4zRfHtEPJYaCuY=",
-                Issuer = "https://localhost:3000"
+                Issuer = "https://localhost:3000",
+                Audience = "https://localhost:5000"
             };
 
             _jwtService = new JwtService(authConfiguration);

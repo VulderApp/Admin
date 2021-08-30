@@ -4,5 +4,6 @@ namespace Vulder.Admin.Core.Interfaces
     {
         string Key { get; set; }
         string Issuer { get; set; }
+        string Audience { get; set; }
     }
 }

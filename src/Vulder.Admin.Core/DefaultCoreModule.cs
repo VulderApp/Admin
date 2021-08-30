@@ -25,7 +25,8 @@ namespace Vulder.Admin.Core
             builder.RegisterInstance(new AuthConfiguration
                 {
                     Key = _configuration["Auth:Key"],
-                    Issuer = _configuration["Auth:Issuer"]
+                    Issuer = _configuration["Auth:Issuer"],
+                    Audience = _configuration["Auth:Audience"]
                 })
                 .As<IAuthConfiguration>();
         }

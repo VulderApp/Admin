@@ -18,21 +18,18 @@ namespace Vulder.Admin.Infrastructure
 
         public static void AddJwtDefault(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddAuthentication(options =>
-            {
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options =>
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
             {
                 options.SaveToken = true;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection("Auth")["Key"])),
-                    ValidIssuer = configuration.GetSection("Auth")["Issuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection("Auth").GetValue<string>("Key"))),
                     ValidateIssuer = true,
-                    ValidateAudience = false,
+                    ValidIssuer = configuration.GetSection("Auth").GetValue<string>("Issuer"),
+                    ValidateAudience = true,
+                    ValidAudience = configuration.GetSection("Auth").GetValue<string>("Audience"),
                     RequireExpirationTime = true,
                     ValidateLifetime = true
                 };
