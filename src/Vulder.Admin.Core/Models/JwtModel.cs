@@ -1,16 +1,12 @@
+using MediatR;
 using Newtonsoft.Json;
+using Vulder.Admin.Core.ProjectAggregate.User.Dtos;
 
 namespace Vulder.Admin.Core.Models
 {
-    public class JwtModel
+    public class JwtModel : IRequest<UserSchoolListDto>
     {
-        [JsonProperty("jti")]
         public string Id { get; set; }
-        
-        [JsonProperty("address")]
         public string Email { get; set; }
-        
-        [JsonProperty("exp")]
-        public long Expire { get; set; }
     }
 }
