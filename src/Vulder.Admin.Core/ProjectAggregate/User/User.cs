@@ -15,6 +15,7 @@ namespace Vulder.Admin.Core.ProjectAggregate.User
         public DateTimeOffset CreatedAt { get; set; }
         
         public Guid[] SchoolCollection { get; set; }
+        public Guid[] SchoolFormRequestCollection { get; set; }
 
         public User(string email)
         {
