@@ -8,7 +8,7 @@
     <PackageReference Include="Autofac" Version="6.2.0" />
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.2" />
     <PackageReference Include="FluentValidation" Version="10.3.0" />
-    <PackageReference Include="JWT" Version="8.4.0-beta1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.9" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Vulder.SharedKernel" Version="0.1.5" />

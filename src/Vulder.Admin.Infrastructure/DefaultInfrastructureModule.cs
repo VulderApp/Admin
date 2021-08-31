@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection;
 using Autofac;
 using MediatR;
 using MediatR.Pipeline;
-using Microsoft.EntityFrameworkCore;
-using Vulder.Admin.Core.ProjectAggregate.School;
 using Vulder.Admin.Core.ProjectAggregate.User;
 using Vulder.Admin.Infrastructure.Data;
 using Vulder.Admin.Infrastructure.Data.Interfaces;
@@ -23,15 +20,16 @@ namespace Vulder.Admin.Infrastructure
         public DefaultInfrastructureModule(string postgresConnectionString)
         {
             _postgresConnectionString = postgresConnectionString;
-            _assemblies.Add(Assembly.GetAssembly(typeof(School)));
             _assemblies.Add(Assembly.GetAssembly(typeof(User)));
             _assemblies.Add(Assembly.GetAssembly(typeof(NewUserRequestHandler)));
+            _assemblies.Add(Assembly.GetAssembly(typeof(UserSchoolListRequestHandler)));
+            _assemblies.Add(Assembly.GetAssembly(typeof(UserSchoolListRequestHandler)));
         }
 
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<UserRepository>()
-                .As(typeof(IUserRepository))
+                .As<IUserRepository>()
                 .InstancePerLifetimeScope();
 
             builder.RegisterType<Mediator>()

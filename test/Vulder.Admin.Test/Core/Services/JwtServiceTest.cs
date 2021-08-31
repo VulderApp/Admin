@@ -1,24 +1,25 @@
 using System;
-using Vulder.Admin.Core.Models;
+using Vulder.Admin.Core.Configuration;
 using Vulder.Admin.Core.ProjectAggregate.User;
 using Vulder.Admin.Core.Services;
-using Vulder.Admin.Infrastructure.Configuration;
 using Xunit;
 
 namespace Vulder.Admin.Test.Core.Services
 {
     public class JwtServiceTest
     {
-        private readonly JwtGenerationService _jwtService;
+        private readonly JwtService _jwtService;
 
         public JwtServiceTest()
         {
             var authConfiguration = new AuthConfiguration
             {
-                Key = "wV7unQu7Uj+2vN8ve76BZcYpPLivN4zRfHtEPJYaCuY="
+                Key = "wV7unQu7Uj+2vN8ve76BZcYpPLivN4zRfHtEPJYaCuY=",
+                Issuer = "https://localhost:3000",
+                Audience = "https://localhost:5000"
             };
 
-            _jwtService = new JwtGenerationService(authConfiguration);
+            _jwtService = new JwtService(authConfiguration);
         }
 
         [Fact]
@@ -30,12 +31,9 @@ namespace Vulder.Admin.Test.Core.Services
                 Email = "example@example.com"
             };
             
-            var jwtToken = _jwtService.GetGeneratedJwtToken(userDto);
-            var result = _jwtService.GetUserDataFromJwtToken(jwtToken);
+            var result = _jwtService.GetGeneratedJwtToken(userDto);
             
-            Assert.IsType<JwtModel>(result);
-            Assert.Equal(userDto.Id.ToString(), result.Id);
-            Assert.Equal(userDto.Email, result.Email);
+            Assert.NotEmpty(result);
         }
     }
 }

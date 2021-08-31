@@ -3,12 +3,10 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vulder.Admin.Core.Interfaces;
-using Vulder.Admin.Core.Services;
 
 namespace Vulder.Admin.Api.Controllers.User
 {
     [ApiController]
-    [Authorize]
     [Route("user/[controller]")]
     public class RegisterController : ControllerBase
     {
@@ -22,7 +20,6 @@ namespace Vulder.Admin.Api.Controllers.User
         }
         
         [HttpPost]
-        [AllowAnonymous]
         public async Task<IActionResult> Post([FromBody]Core.Models.UserModel userModel)
         {
             var user = await _mediator.Send(

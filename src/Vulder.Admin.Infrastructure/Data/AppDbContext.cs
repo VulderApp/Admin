@@ -1,9 +1,5 @@
 ﻿using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Vulder.Admin.Core.ProjectAggregate.School;
 using Vulder.Admin.Core.ProjectAggregate.User;
 
 namespace Vulder.Admin.Infrastructure.Data
@@ -12,7 +8,6 @@ namespace Vulder.Admin.Infrastructure.Data
     {
         private readonly string _postgresConnectionString;
         public DbSet<User> Users { get; set; }
-        public DbSet<School> Schools { get; set; }
         
         public AppDbContext(string postgresConnectionString)
         {

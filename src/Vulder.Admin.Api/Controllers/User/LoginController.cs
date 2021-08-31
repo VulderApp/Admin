@@ -7,7 +7,6 @@ using Vulder.Admin.Core.Interfaces;
 namespace Vulder.Admin.Api.Controllers.User
 {
     [ApiController]
-    [Authorize]
     [Route("user/[controller]")]
     public class LoginController : ControllerBase
     {
@@ -21,7 +20,6 @@ namespace Vulder.Admin.Api.Controllers.User
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public async Task<IActionResult> Post([FromBody] Core.Models.UserModel user)
         {
             var userDto = await _mediator.Send(user);

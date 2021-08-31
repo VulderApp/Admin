@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using Autofac;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -8,10 +10,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Vulder.Admin.Core;
 using Vulder.Admin.Core.Models;
 using Vulder.Admin.Core.Validators;
 using Vulder.Admin.Infrastructure;
-using Vulder.Admin.Infrastructure.Configuration;
 
 namespace Vulder.Admin.Api
 {
@@ -29,8 +31,7 @@ namespace Vulder.Admin.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<AuthConfiguration>(Configuration.GetSection("Auth"));
-
+            services.AddJwtDefault(Configuration);
             services.AddCors(options =>
             {
                 options.AddPolicy(name: CorsPolicyName,
@@ -41,15 +42,30 @@ namespace Vulder.Admin.Api
                             .AllowAnyHeader();
                     });
             });
-            
             services.AddControllers()
                 .AddNewtonsoftJson()
                 .AddFluentValidation();
             services.AddModelsToValidate();
-            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Vulder.Admin.Api", Version = "v1" });
+                var securitySchema = new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Description = "JWT Auth header",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                    },
+                };
+                c.AddSecurityDefinition("Bearer", securitySchema);
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    { securitySchema, new [] { "Bearer" } }   
+                });
             });
         }
 
@@ -59,6 +75,7 @@ namespace Vulder.Admin.Api
                Environment.GetEnvironmentVariable("POSTGRES_CONNECTION")
                ?? Configuration["Postgres:ConnectionString"])
             );
+            builder.RegisterModule(new DefaultCoreModule(Configuration));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,10 +93,10 @@ namespace Vulder.Admin.Api
             app.UseRouting();
 
             app.UseCors(CorsPolicyName);
+            
+            app.UseAuthentication();
 
             app.UseAuthorization();
-
-            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
