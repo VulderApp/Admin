@@ -1,10 +1,11 @@
 using System;
+using MediatR;
 using Vulder.SharedKernel;
 using Vulder.SharedKernel.Interface;
 
 namespace Vulder.Admin.Core.ProjectAggregate.SchoolForm
 {
-    public class SchoolForm : BaseEntity, IAggregateRoot
+    public class SchoolForm : BaseEntity, IAggregateRoot, IRequest<bool>
     {
         public Guid RequesterId { get; set; }
         public string SchoolName { get; set; }
@@ -15,6 +16,12 @@ namespace Vulder.Admin.Core.ProjectAggregate.SchoolForm
         public Guid ApprovedBy { get; set; }
         public DateTimeOffset ApprovedAt { get; set; }
 
+        public SchoolForm GenerateId()
+        {
+            Id = Guid.NewGuid();
+            return this;
+        }
+        
         public SchoolForm CreateTimestamp()
         {
             CreateAt = DateTimeOffset.Now;
