@@ -19,13 +19,13 @@ namespace Vulder.Admin.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     RequesterId = table.Column<Guid>(type: "uuid", nullable: false),
-                    SchoolName = table.Column<string>(type: "text", nullable: true),
-                    TimetableUrl = table.Column<string>(type: "text", nullable: true),
-                    SchoolUrl = table.Column<string>(type: "text", nullable: true),
+                    SchoolName = table.Column<string>(type: "text", nullable: false),
+                    TimetableUrl = table.Column<string>(type: "text", nullable: false),
+                    SchoolUrl = table.Column<string>(type: "text", nullable: false),
                     CreateAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    ApprovedBy = table.Column<Guid>(type: "uuid", nullable: false),
-                    ApprovedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    ApprovedBy = table.Column<Guid>(type: "uuid", nullable: true),
+                    ApprovedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
