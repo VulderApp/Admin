@@ -25,9 +25,8 @@ namespace Vulder.Admin.Api.Controllers.School.Form
         public async Task<IActionResult> PostSchoolForm([FromBody] SchoolFormModel schoolFormModel)
         {
             var id = User.FindFirst(ClaimTypes.PrimarySid)?.Value;
-            
             if (id == null) 
-                return Problem("Id is null");
+                return Problem("Token has broken payload. Please log in again!");
             
             var school = new SchoolForm
             {
@@ -39,7 +38,7 @@ namespace Vulder.Admin.Api.Controllers.School.Form
             var result = await _mediator.Send(school);
 
             if (!result)
-                return Problem();
+                return Problem("Couldn't register school form to db!");
 
             return Ok();
         }
