@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using Vulder.Admin.Core.ProjectAggregate.SchoolForm;
 using Vulder.Admin.Core.ProjectAggregate.User;
 
 namespace Vulder.Admin.Infrastructure.Data
@@ -8,7 +9,8 @@ namespace Vulder.Admin.Infrastructure.Data
     {
         private readonly string _postgresConnectionString;
         public DbSet<User> Users { get; set; }
-        
+        public DbSet<SchoolForm> SchoolForms { get; set; }
+
         public AppDbContext(string postgresConnectionString)
         {
             _postgresConnectionString = postgresConnectionString;

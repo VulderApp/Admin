@@ -3,10 +3,12 @@ using System.Reflection;
 using Autofac;
 using MediatR;
 using MediatR.Pipeline;
+using Vulder.Admin.Core.ProjectAggregate.SchoolForm;
 using Vulder.Admin.Core.ProjectAggregate.User;
 using Vulder.Admin.Infrastructure.Data;
 using Vulder.Admin.Infrastructure.Data.Interfaces;
 using Vulder.Admin.Infrastructure.Data.Repositories;
+using Vulder.Admin.Infrastructure.Handlers.School.Form;
 using Vulder.Admin.Infrastructure.Handlers.User;
 using Module = Autofac.Module;
 
@@ -24,12 +26,17 @@ namespace Vulder.Admin.Infrastructure
             _assemblies.Add(Assembly.GetAssembly(typeof(NewUserRequestHandler)));
             _assemblies.Add(Assembly.GetAssembly(typeof(UserSchoolListRequestHandler)));
             _assemblies.Add(Assembly.GetAssembly(typeof(UserSchoolListRequestHandler)));
+            _assemblies.Add(Assembly.GetAssembly(typeof(NewFormRequestHandler)));
         }
 
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<UserRepository>()
                 .As<IUserRepository>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<SchoolFormRepository>()
+                .As<ISchoolFormRepository>()
                 .InstancePerLifetimeScope();
 
             builder.RegisterType<Mediator>()

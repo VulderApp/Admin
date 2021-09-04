@@ -14,6 +14,7 @@ namespace Vulder.Admin.Infrastructure
         public static void AddModelsToValidate(this IServiceCollection services)
         {
             services.AddTransient<IValidator<UserModel>, UserValidator>();
+            services.AddTransient<IValidator<SchoolFormModel>, SchoolFormValidator>();
         }
 
         public static void AddJwtDefault(this IServiceCollection services, IConfiguration configuration)

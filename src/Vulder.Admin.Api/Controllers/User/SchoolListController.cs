@@ -25,7 +25,7 @@ namespace Vulder.Admin.Api.Controllers.User
         {
             var schoolsDto = await _mediator.Send(new JwtModel
             {
-                Id = User.FindFirst(ClaimTypes.Sid)?.Value,
+                Id = User.FindFirst(ClaimTypes.PrimarySid)?.Value,
                 Email = User.FindFirst(ClaimTypes.Email)?.Value
             });
             

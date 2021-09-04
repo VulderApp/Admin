@@ -14,4 +14,8 @@
     <PackageReference Include="Vulder.SharedKernel" Version="0.1.5" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ProjectAggregate\SchoolForm\Dtos" />
+  </ItemGroup>
+
 </Project>
