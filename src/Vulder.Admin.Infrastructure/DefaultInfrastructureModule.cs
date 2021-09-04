@@ -27,6 +27,7 @@ namespace Vulder.Admin.Infrastructure
             _assemblies.Add(Assembly.GetAssembly(typeof(UserSchoolListRequestHandler)));
             _assemblies.Add(Assembly.GetAssembly(typeof(UserSchoolListRequestHandler)));
             _assemblies.Add(Assembly.GetAssembly(typeof(NewFormRequestHandler)));
+            _assemblies.Add(Assembly.GetAssembly(typeof(DeleteFormRequestHandler)));
         }
 
         protected override void Load(ContainerBuilder builder)
