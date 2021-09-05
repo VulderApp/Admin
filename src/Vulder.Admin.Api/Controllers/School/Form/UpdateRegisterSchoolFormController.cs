@@ -18,7 +18,7 @@ namespace Vulder.Admin.Api.Controllers.School.Form
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateForm([FromBody] UpdateSchoolModel schoolFormModel)
+        public async Task<IActionResult> UpdateForm([FromBody] UpdateFormModel schoolFormModel)
         {
             await _mediator.Send(schoolFormModel);
             return Ok();

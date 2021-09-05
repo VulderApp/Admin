@@ -7,7 +7,7 @@ using Vulder.Admin.Infrastructure.Data.Interfaces;
 
 namespace Vulder.Admin.Infrastructure.Handlers.School.Form
 {
-    public class UpdateFormRequestHandler : IRequestHandler<UpdateSchoolModel, Unit>
+    public class UpdateFormRequestHandler : IRequestHandler<UpdateFormModel, Unit>
     {
         private readonly ISchoolFormRepository _repository;
         
@@ -16,7 +16,7 @@ namespace Vulder.Admin.Infrastructure.Handlers.School.Form
             _repository = repository;
         }
 
-        public async Task<Unit> Handle(UpdateSchoolModel request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateFormModel request, CancellationToken cancellationToken)
         {
             var form = await _repository.GetAsync(request.Id);
             

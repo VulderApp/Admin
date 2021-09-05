@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Vulder.Admin.Core.Models
 {
-    public class UpdateSchoolModel : IRequest<Unit>
+    public class UpdateFormModel : IRequest<Unit>
     {
         public Guid Id { get; set; }
         public string SchoolName { get; set; }
