@@ -1,6 +1,7 @@
 using System.Text;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -15,6 +16,7 @@ namespace Vulder.Admin.Infrastructure
         {
             services.AddTransient<IValidator<UserModel>, UserValidator>();
             services.AddTransient<IValidator<SchoolFormModel>, SchoolFormValidator>();
+            services.AddTransient<IValidator<UpdateFormModel>, UpdateFormValidator>();
         }
 
         public static void AddJwtDefault(this IServiceCollection services, IConfiguration configuration)

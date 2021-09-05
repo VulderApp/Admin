@@ -7,6 +7,8 @@ namespace Vulder.Admin.Infrastructure.Data.Interfaces
     public interface ISchoolFormRepository
     {
         Task<SchoolForm> AddAsync(SchoolForm entity);
+        Task<SchoolForm> GetAsync(Guid id);
+        Task UpdateAsync(SchoolForm entity);
         Task<bool> DeleteAsync(Guid requesterId);
     }
 }

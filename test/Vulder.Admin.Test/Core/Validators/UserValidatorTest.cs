@@ -22,6 +22,7 @@ namespace Vulder.Admin.Test.Core.Validators
                 Email = "example@example.com",
                 Password = "example123!!@#"
             };
+            
             Assert.True(_validator.TestValidate(model).IsValid);
         }
     }
