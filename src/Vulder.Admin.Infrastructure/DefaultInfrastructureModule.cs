@@ -23,11 +23,13 @@ namespace Vulder.Admin.Infrastructure
         {
             _postgresConnectionString = postgresConnectionString;
             _assemblies.Add(Assembly.GetAssembly(typeof(User)));
+            _assemblies.Add(Assembly.GetAssembly(typeof(SchoolForm)));
             _assemblies.Add(Assembly.GetAssembly(typeof(NewUserRequestHandler)));
             _assemblies.Add(Assembly.GetAssembly(typeof(UserSchoolListRequestHandler)));
             _assemblies.Add(Assembly.GetAssembly(typeof(UserSchoolListRequestHandler)));
             _assemblies.Add(Assembly.GetAssembly(typeof(NewFormRequestHandler)));
             _assemblies.Add(Assembly.GetAssembly(typeof(DeleteFormRequestHandler)));
+            _assemblies.Add(Assembly.GetAssembly(typeof(UpdateFormRequestHandler)));
         }
 
         protected override void Load(ContainerBuilder builder)
