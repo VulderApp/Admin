@@ -1,5 +1,4 @@
 using MediatR;
-using Newtonsoft.Json;
 using Vulder.Admin.Core.ProjectAggregate.User.Dtos;
 
 namespace Vulder.Admin.Core.Models

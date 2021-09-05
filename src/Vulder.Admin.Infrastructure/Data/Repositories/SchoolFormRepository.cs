@@ -25,11 +25,16 @@ namespace Vulder.Admin.Infrastructure.Data.Repositories
             return entity;
         }
 
-        public async Task DeleteAsync(Guid requesterId)
+        public async Task<bool> DeleteAsync(Guid requesterId)
         {
             var form = await _context.SchoolForms.OrderBy(e => e.RequesterId == requesterId).FirstAsync();
+            if (form == null)
+                return false;
+            
             _context.SchoolForms.Remove(form);
             await _context.SaveChangesAsync();
+            
+            return true;
         }
     }
 }

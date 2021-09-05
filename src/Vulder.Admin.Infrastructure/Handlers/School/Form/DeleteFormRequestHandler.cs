@@ -7,7 +7,7 @@ using Vulder.Admin.Infrastructure.Data.Interfaces;
 
 namespace Vulder.Admin.Infrastructure.Handlers.School.Form
 {
-    public class DeleteFormRequestHandler : AsyncRequestHandler<JwtModel>
+    public class DeleteFormRequestHandler : IRequestHandler<DeleteFormModel, bool>
     {
         private readonly ISchoolFormRepository _repository;
 
@@ -16,9 +16,9 @@ namespace Vulder.Admin.Infrastructure.Handlers.School.Form
             _repository = repository;
         }
         
-        protected override async Task Handle(JwtModel request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(DeleteFormModel request, CancellationToken cancellationToken)
         {
-            await _repository.DeleteAsync(new Guid(request.Id));
+            return await _repository.DeleteAsync(request.Id);
         }
     }
 }

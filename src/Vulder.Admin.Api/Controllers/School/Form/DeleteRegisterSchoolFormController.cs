@@ -1,3 +1,4 @@
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using MediatR;
@@ -29,10 +30,13 @@ namespace Vulder.Admin.Api.Controllers.School.Form
             if (string.IsNullOrEmpty(formId))
                 return BadRequest("formId is null or empty");
 
-            await _mediator.Send(new JwtModel
+            var isDeleted = await _mediator.Send(new DeleteFormModel
             {
-                Id = id
+                Id = new Guid(id),
             });
+            
+            if (!isDeleted)
+                return Problem();
             
             return Ok();
         }
