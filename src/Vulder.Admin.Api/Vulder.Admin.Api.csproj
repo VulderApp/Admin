@@ -7,7 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.3.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
+    <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="Vulder.SharedKernel" Version="0.1.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Vulder.Admin.Application\Vulder.Admin.Application.csproj" />
+    <ProjectReference Include="..\Vulder.Admin.Core\Vulder.Admin.Core.csproj" />
+    <ProjectReference Include="..\Vulder.Admin.Infrastructure\Vulder.Admin.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
