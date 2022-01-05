@@ -4,6 +4,7 @@ using MediatR;
 using MediatR.Pipeline;
 using Microsoft.Extensions.Configuration;
 using Vulder.Admin.Application.Auth.Jwt;
+using Vulder.Admin.Application.Auth.Login;
 using Vulder.Admin.Application.Auth.Register;
 using Vulder.Admin.Core.Configuration;
 using Module = Autofac.Module;
@@ -20,6 +21,7 @@ public class ApplicationModule : Module
         _configuration = configuration;
 
         _assemblies.Add(Assembly.GetAssembly(typeof(RegisterUserRequestHandler)));
+        _assemblies.Add(Assembly.GetAssembly(typeof(LoginUserRequestHandler)));
     }
 
     protected override void Load(ContainerBuilder builder)
