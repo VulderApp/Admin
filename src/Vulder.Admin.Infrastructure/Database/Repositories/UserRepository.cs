@@ -19,4 +19,7 @@ public class UserRepository : IUserRepository
 
         return user;
     }
+
+    public async Task<User?> GetUser(string email)
+        => await Users!.Where(e => e.Email == email).FirstOrDefaultAsync();
 }

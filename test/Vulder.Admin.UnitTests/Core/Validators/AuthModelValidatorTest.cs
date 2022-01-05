@@ -15,12 +15,12 @@ public class AuthModelValidatorTest
             Email = "example@example.com",
             Password = "example123example123"
         };
-        
+
         var result = new AuthModelValidator().TestValidate(model).IsValid;
-        
+
         Assert.True(result);
     }
-    
+
     [Fact]
     public void ValidateAuthModel_NotValid()
     {
@@ -29,9 +29,9 @@ public class AuthModelValidatorTest
             Email = "exampl",
             Password = null
         };
-        
+
         var result = new AuthModelValidator().TestValidate(model).IsValid;
-        
+
         Assert.False(result);
     }
 }
