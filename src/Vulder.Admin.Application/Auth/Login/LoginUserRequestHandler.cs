@@ -11,7 +11,7 @@ public class LoginUserRequestHandler : IRequestHandler<LoginUserModel, AuthUserD
 {
     private readonly IUserRepository _userRepository;
     private readonly IJwtGenerationService _jwtGenerationService;
-    
+
     public LoginUserRequestHandler(IUserRepository userRepository, IJwtGenerationService jwtGenerationService)
     {
         _userRepository = userRepository;
@@ -22,8 +22,8 @@ public class LoginUserRequestHandler : IRequestHandler<LoginUserModel, AuthUserD
     {
         var user = await _userRepository.GetUser(request.Email!);
         if (user == null) throw new Exception("User not found");
-        
-        if (!PasswordUtil.VerifyPassword(request.Password!, user.Password!)) 
+
+        if (!PasswordUtil.VerifyPassword(request.Password!, user.Password!))
             throw new Exception("The password is incorrect");
 
         return new AuthUserDto

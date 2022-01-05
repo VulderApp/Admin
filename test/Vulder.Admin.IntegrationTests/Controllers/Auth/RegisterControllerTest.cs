@@ -17,12 +17,12 @@ public class RegisterControllerTest
             Email = "example@example.com",
             Password = "nevergiveup"
         };
-        
+
         await using var application = new WebServerFactory();
         using var client = application.CreateClient();
         var httpContent = new StringContent(JsonSerializer.Serialize(body), Encoding.UTF8, "application/json");
         using var response = await client.PostAsync("/auth/Register", httpContent);
-        
+
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
 }

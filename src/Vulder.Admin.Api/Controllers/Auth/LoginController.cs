@@ -6,10 +6,10 @@ namespace Vulder.Admin.Api.Controllers.Auth;
 
 [ApiController]
 [Route("/auth/[controller]")]
-public class LoginController: ControllerBase
+public class LoginController : ControllerBase
 {
     private readonly IMediator _mediator;
-    
+
     public LoginController(IMediator mediator)
     {
         _mediator = mediator;
