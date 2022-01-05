@@ -6,7 +6,7 @@ namespace Vulder.Admin.Infrastructure.Database.Repositories;
 
 public class UserRepository : IUserRepository
 {
-    private DbSet<User> Users { get; }
+    private DbSet<User>? Users { get; }
 
     public UserRepository(AppDbContext context)
     {
@@ -15,7 +15,7 @@ public class UserRepository : IUserRepository
 
     public async Task<User> CreateUser(User user)
     {
-        await Users.AddAsync(user);
+        await Users!.AddAsync(user);
 
         return user;
     }

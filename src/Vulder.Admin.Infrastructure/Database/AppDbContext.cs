@@ -6,7 +6,7 @@ namespace Vulder.Admin.Infrastructure.Database;
 
 public class AppDbContext : DbContext
 {
-    public DbSet<User> Users { get; set; }
+    public DbSet<User>? Users { get; set; }
 
     private readonly string _connectionString;
 

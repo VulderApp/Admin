@@ -3,6 +3,8 @@ using Autofac.Extensions.DependencyInjection;
 using Vulder.Admin.Application;
 using Vulder.Admin.Infrastructure;
 
+AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
@@ -33,3 +35,5 @@ app.UseAuthentication();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program {}

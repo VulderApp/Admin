@@ -24,7 +24,7 @@ public class JwtGenerationService : IJwtGenerationService
             Subject = new ClaimsIdentity(new[]
             {
                 new Claim(ClaimTypes.PrimarySid, userDto.Id.ToString()),
-                new Claim(ClaimTypes.Email, userDto.Email),
+                new Claim(ClaimTypes.Email, userDto.Email ?? throw new Exception("Email is null")),
                 new Claim(ClaimTypes.Role, userDto.Role.ToString())
             }),
             Expires = DateTime.UtcNow.AddMinutes(30),

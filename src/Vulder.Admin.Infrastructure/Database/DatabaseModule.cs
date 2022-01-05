@@ -16,8 +16,9 @@ public class DatabaseModule : Module
 
     protected override void Load(ContainerBuilder builder)
     {
-        builder.RegisterInstance(new AppDbContext(_connectionString))
-            .SingleInstance();
+        builder.RegisterType<AppDbContext>()
+            .WithParameter("connectionString", _connectionString)
+            .InstancePerLifetimeScope();
 
         builder.RegisterType<UnitOfWork>()
             .As<IUnitOfWork>()

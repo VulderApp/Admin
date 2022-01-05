@@ -28,7 +28,7 @@ namespace Vulder.Admin.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTimeOffset>("CreatedAt")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
@@ -42,7 +42,7 @@ namespace Vulder.Admin.Infrastructure.Migrations
                     b.Property<int>("Role")
                         .HasColumnType("integer");
 
-                    b.Property<DateTimeOffset>("UpdatedAt")
+                    b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");

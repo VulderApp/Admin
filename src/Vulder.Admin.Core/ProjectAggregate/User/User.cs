@@ -16,8 +16,8 @@ public class User : BaseEntity
     public Role Role { get; set; }
 
     [Required]
-    public DateTimeOffset CreatedAt { get; set; }
-    public DateTimeOffset UpdatedAt { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
 
     public User GenerateId()
     {
@@ -28,14 +28,14 @@ public class User : BaseEntity
 
     public User CreateTimestamp()
     {
-        CreatedAt = DateTimeOffset.Now;
+        CreatedAt = DateTime.UtcNow;
 
         return this;
     }
 
     public User UpdateTimestamp()
     {
-        UpdatedAt = DateTimeOffset.Now;
+        UpdatedAt = DateTime.UtcNow;
 
         return this;
     }

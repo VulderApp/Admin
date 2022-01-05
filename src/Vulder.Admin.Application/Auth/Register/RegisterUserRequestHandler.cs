@@ -23,8 +23,8 @@ public class RegisterUserRequestHandler : IRequestHandler<RegisterUserModel, Aut
         var user = new Core.ProjectAggregate.User.User
         {
             Email = request.Email,
-            Password = PasswordUtil.GetEncryptedPassword(request.Password)
-        }.GenerateId().CreateTimestamp();
+            Password = PasswordUtil.GetEncryptedPassword(request.Password!)
+        }.GenerateId().CreateTimestamp().UpdateTimestamp();
 
         var userDb = await _userRepository.CreateUser(user);
 

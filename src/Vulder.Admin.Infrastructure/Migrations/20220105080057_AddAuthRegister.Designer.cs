@@ -12,8 +12,8 @@ using Vulder.Admin.Infrastructure.Database;
 namespace Vulder.Admin.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220104190052_AddRegisterUser")]
-    partial class AddRegisterUser
+    [Migration("20220105080057_AddAuthRegister")]
+    partial class AddAuthRegister
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,7 +30,7 @@ namespace Vulder.Admin.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTimeOffset>("CreatedAt")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
@@ -44,7 +44,7 @@ namespace Vulder.Admin.Infrastructure.Migrations
                     b.Property<int>("Role")
                         .HasColumnType("integer");
 
-                    b.Property<DateTimeOffset>("UpdatedAt")
+                    b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
