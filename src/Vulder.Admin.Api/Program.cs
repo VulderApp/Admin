@@ -2,6 +2,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Vulder.Admin.Application;
 using Vulder.Admin.Infrastructure;
+using Vulder.Admin.Infrastructure.Middlewares;
 
 AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
 
@@ -11,8 +12,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddValidators();
 builder.Services.AddDefaultCorsPolicy();
-builder.Services.AddDefaultJwtConfiguration(builder.Configuration);
 builder.Services.AddSwaggerGen();
+builder.Services.AddDefaultJwtConfiguration(builder.Configuration);
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory(containerBuild =>
 {
@@ -27,6 +28,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 
 app.UseHttpsRedirection();
 
