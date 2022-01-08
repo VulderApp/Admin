@@ -1,5 +1,6 @@
 using MediatR;
 using Vulder.Admin.Application.Auth.Jwt;
+using Vulder.Admin.Core.Exceptions;
 using Vulder.Admin.Core.Models;
 using Vulder.Admin.Core.ProjectAggregate.User.Dtos;
 using Vulder.Admin.Core.Utils;
@@ -21,10 +22,10 @@ public class LoginUserRequestHandler : IRequestHandler<LoginUserModel, AuthUserD
     public async Task<AuthUserDto> Handle(LoginUserModel request, CancellationToken cancellationToken)
     {
         var user = await _userRepository.GetUser(request.Email!);
-        if (user == null) throw new Exception("User not found");
+        if (user == null) throw new AuthException("User not found");
 
         if (!PasswordUtil.VerifyPassword(request.Password!, user.Password!))
-            throw new Exception("The password is incorrect");
+            throw new AuthException("The password is incorrect");
 
         return new AuthUserDto
         {
