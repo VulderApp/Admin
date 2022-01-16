@@ -18,6 +18,7 @@ public static class StartupExtensions
 
         services.AddTransient<IValidator<RegisterUserModel>, AuthModelValidator>();
         services.AddTransient<IValidator<LoginUserModel>, AuthModelValidator>();
+        services.AddTransient<IValidator<ChangePasswordModel>, ChangePasswordModelValidator>();
     }
 
     public static void AddDefaultJwtConfiguration(this IServiceCollection services, IConfiguration configuration)

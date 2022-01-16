@@ -22,4 +22,9 @@ public class UserRepository : IUserRepository
 
     public async Task<User?> GetUser(string email)
         => await Users!.Where(e => e.Email == email).FirstOrDefaultAsync();
+
+    public async Task UpdateUser(User user)
+    { 
+        Users!.Update(user);
+    }
 }

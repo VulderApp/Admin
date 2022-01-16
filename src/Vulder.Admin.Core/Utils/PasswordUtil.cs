@@ -1,6 +1,6 @@
 namespace Vulder.Admin.Core.Utils;
 
-public class PasswordUtil
+public static class PasswordUtil
 {
     public static string GetEncryptedPassword(string password)
     {
