@@ -7,14 +7,14 @@ public class ChangePasswordModelValidator : AbstractValidator<ChangePasswordMode
 {
     public ChangePasswordModelValidator()
     {
-        const int passwordLenght = 32;
-        
+        const int passwordLenght = 6;
+
         RuleFor(x => x.CurrentPassword)
             .NotNull()
             .NotEmpty()
             .MinimumLength(passwordLenght)
             .NotEqual(x => x.NewPassword);
-        
+
         RuleFor(x => x.NewPassword)
             .NotNull()
             .NotEmpty()

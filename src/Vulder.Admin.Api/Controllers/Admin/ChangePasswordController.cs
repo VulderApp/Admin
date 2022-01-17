@@ -9,17 +9,18 @@ namespace Vulder.Admin.Api.Controllers.Admin;
 
 [Authorize]
 [ApiController]
+[Route("/admin/[controller]")]
 public class ChangePasswordController : ControllerBase
 {
     private readonly IMediator _mediator;
     private readonly IUnitOfWork _unitOfWork;
-    
+
     public ChangePasswordController(IMediator mediator, IUnitOfWork unitOfWork)
     {
         _mediator = mediator;
         _unitOfWork = unitOfWork;
     }
-    
+
     [HttpPut]
     public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordModel changePasswordModel)
     {
@@ -30,7 +31,7 @@ public class ChangePasswordController : ControllerBase
             Id = Guid.Parse(User.FindFirst(ClaimTypes.PrimarySid)?.Value!),
             Email = User.FindFirst(ClaimTypes.Email)?.Value!
         });
-        
+
         await _unitOfWork.CompleteAsync();
 
         return Ok(result);
