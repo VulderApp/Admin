@@ -3,6 +3,7 @@ using Autofac.Extensions.DependencyInjection;
 using Vulder.Admin.Application;
 using Vulder.Admin.Infrastructure;
 using Vulder.Admin.Infrastructure.Middlewares;
+using Vulder.SharedKernel;
 
 AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
 
@@ -33,9 +34,9 @@ app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
 app.UseAuthentication();
+
+app.UseAuthorization();
 
 app.MapControllers();
 
