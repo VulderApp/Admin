@@ -1,5 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
-
 namespace Vulder.Admin.Core.Configuration;
 
 public class JwtConfiguration : IJwtConfiguration

@@ -11,7 +11,7 @@ public class WebServerFactory : WebApplicationFactory<Program>
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         Environment.SetEnvironmentVariable("REGISTER_ONLY_ONE_ACCOUNT", "true");
-        
+
         builder.UseEnvironment("Production");
         builder.ConfigureAppConfiguration(configurationBuilder =>
         {

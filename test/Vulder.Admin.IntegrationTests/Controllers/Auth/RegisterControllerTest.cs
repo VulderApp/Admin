@@ -1,11 +1,9 @@
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using Newtonsoft.Json;
+using System.Text.Json;
 using Vulder.Admin.Core.Models;
 using Xunit;
-using ExceptionModel = Vulder.SharedKernel.Models.ExceptionModel;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Vulder.Admin.IntegrationTests.Controllers.Auth;
 
@@ -18,7 +16,8 @@ public class RegisterControllerTest
         var body = new RegisterUserModel
         {
             Email = "example@example.com",
-            Password = "dg==OXcEoiOUA2P1IxTWUjcX5XeSQsOz1kJE9+K01leUUmR2TEFaKX5Ge1txUj1yQVNdZTdsKUt7IWBNVXlsYUYtRmozQjg/eSEg"
+            Password =
+                "dg==OXcEoiOUA2P1IxTWUjcX5XeSQsOz1kJE9+K01leUUmR2TEFaKX5Ge1txUj1yQVNdZTdsKUt7IWBNVXlsYUYtRmozQjg/eSEg"
         };
 
         await using var application = new WebServerFactory();
@@ -35,7 +34,8 @@ public class RegisterControllerTest
         var body = new RegisterUserModel
         {
             Email = "example@example.com",
-            Password = "dg==XE=cEoiOUA2P1IxTWUjcX5XeSQsOz1kJE9+K01leUg=UmR2TEFaKX5Ge1txUj1yQVNdZTdsKUt7IWBNVXlsYUYtRmozQjg/eSEg"
+            Password =
+                "dg==XE=cEoiOUA2P1IxTWUjcX5XeSQsOz1kJE9+K01leUg=UmR2TEFaKX5Ge1txUj1yQVNdZTdsKUt7IWBNVXlsYUYtRmozQjg/eSEg"
         };
 
         await using var application = new WebServerFactory();

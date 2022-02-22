@@ -10,8 +10,8 @@ namespace Vulder.Admin.Application.Auth.Login;
 
 public class LoginUserRequestHandler : IRequestHandler<LoginUserModel, AuthUserDto>
 {
-    private readonly IUserRepository _userRepository;
     private readonly IJwtGenerationService _jwtGenerationService;
+    private readonly IUserRepository _userRepository;
 
     public LoginUserRequestHandler(IUserRepository userRepository, IJwtGenerationService jwtGenerationService)
     {

@@ -1,4 +1,3 @@
-using System.Data;
 using FluentValidation;
 using Vulder.Admin.Core.Models;
 
