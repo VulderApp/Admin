@@ -20,6 +20,11 @@ public class UserRepository : IUserRepository
         return user;
     }
 
+    public async Task<int> GetUserCount()
+    {
+        return await Users!.CountAsync();
+    }
+
     public async Task<User?> GetUser(string email)
         => await Users!.Where(e => e.Email == email).FirstOrDefaultAsync();
 
