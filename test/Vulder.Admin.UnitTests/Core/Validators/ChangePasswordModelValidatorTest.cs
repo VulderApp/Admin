@@ -7,7 +7,6 @@ namespace Vulder.Admin.UnitTests.Core.Validators;
 
 public class ChangePasswordModelValidatorTest
 {
-
     [Fact]
     public void ValidateChangePasswordModel_Correct()
     {

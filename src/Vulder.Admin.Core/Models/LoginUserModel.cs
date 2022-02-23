@@ -5,5 +5,4 @@ namespace Vulder.Admin.Core.Models;
 
 public class LoginUserModel : AuthModel, IRequest<AuthUserDto>
 {
-
 }

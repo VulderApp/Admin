@@ -1,24 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Autofac" Version="6.3.0" />
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
-    <PackageReference Include="FluentValidation" Version="10.3.6" />
-    <PackageReference Include="MediatR" Version="10.0.1" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-    <PackageReference Include="Vulder.SharedKernel" Version="0.1.9" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Autofac" Version="6.3.0"/>
+        <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0"/>
+        <PackageReference Include="FluentValidation" Version="10.3.6"/>
+        <PackageReference Include="MediatR" Version="10.0.1"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3"/>
+        <PackageReference Include="Vulder.SharedKernel" Version="0.1.9"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Vulder.Admin.Application\Vulder.Admin.Application.csproj" />
-    <ProjectReference Include="..\Vulder.Admin.Core\Vulder.Admin.Core.csproj" />
-    <ProjectReference Include="..\Vulder.Admin.Infrastructure\Vulder.Admin.Infrastructure.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Vulder.Admin.Application\Vulder.Admin.Application.csproj"/>
+        <ProjectReference Include="..\Vulder.Admin.Core\Vulder.Admin.Core.csproj"/>
+        <ProjectReference Include="..\Vulder.Admin.Infrastructure\Vulder.Admin.Infrastructure.csproj"/>
+    </ItemGroup>
 
 </Project>

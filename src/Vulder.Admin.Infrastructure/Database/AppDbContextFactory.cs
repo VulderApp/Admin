@@ -9,6 +9,6 @@ public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
         return new AppDbContext(
             Environment.GetEnvironmentVariable("POSTGRES_CONNECTION_STRING") ??
             throw new Exception("Environment POSTGRES_CONNECTION_STRING is empty")
-            );
+        );
     }
 }

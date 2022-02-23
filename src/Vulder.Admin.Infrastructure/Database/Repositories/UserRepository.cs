@@ -6,12 +6,12 @@ namespace Vulder.Admin.Infrastructure.Database.Repositories;
 
 public class UserRepository : IUserRepository
 {
-    private DbSet<User>? Users { get; }
-
     public UserRepository(AppDbContext context)
     {
         Users = context.Users;
     }
+
+    private DbSet<User>? Users { get; }
 
     public async Task<User> CreateUser(User user)
     {
@@ -20,8 +20,15 @@ public class UserRepository : IUserRepository
         return user;
     }
 
+    public async Task<int> GetUserCount()
+    {
+        return await Users!.CountAsync();
+    }
+
     public async Task<User?> GetUser(string email)
-        => await Users!.Where(e => e.Email == email).FirstOrDefaultAsync();
+    {
+        return await Users!.Where(e => e.Email == email).FirstOrDefaultAsync();
+    }
 
     public Task UpdateUser(User user)
     {

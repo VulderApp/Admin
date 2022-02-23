@@ -1,22 +1,18 @@
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
 using Vulder.SharedKernel;
 
 namespace Vulder.Admin.Core.ProjectAggregate.User;
 
 public class User : BaseEntity
 {
-    [Required]
-    public string? Email { get; set; }
+    [Required] public string? Email { get; set; }
 
-    [Required]
-    public string? Password { get; set; }
+    [Required] public string? Password { get; set; }
 
-    [Required]
-    public Role Role { get; set; }
+    [Required] public Role Role { get; set; }
 
-    [Required]
-    public DateTime CreatedAt { get; set; }
+    [Required] public DateTime CreatedAt { get; set; }
+
     public DateTime UpdatedAt { get; set; }
 
     public User GenerateId()

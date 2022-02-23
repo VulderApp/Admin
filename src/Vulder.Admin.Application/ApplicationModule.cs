@@ -27,11 +27,11 @@ public class ApplicationModule : Module
     protected override void Load(ContainerBuilder builder)
     {
         builder.RegisterInstance(new JwtConfiguration
-        {
-            Key = _configuration["Jwt:Key"],
-            Issuer = _configuration["Jwt:Issuer"],
-            Audience = _configuration["Jwt:Audience"],
-        })
+            {
+                Key = _configuration["Jwt:Key"],
+                Issuer = _configuration["Jwt:Issuer"],
+                Audience = _configuration["Jwt:Audience"]
+            })
             .As<IJwtConfiguration>()
             .SingleInstance();
 

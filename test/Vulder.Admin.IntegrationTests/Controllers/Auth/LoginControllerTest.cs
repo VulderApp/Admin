@@ -7,6 +7,7 @@ using Xunit;
 
 namespace Vulder.Admin.IntegrationTests.Controllers.Auth;
 
+[Collection("Login Collection")]
 public class LoginControllerTest
 {
     [Fact]

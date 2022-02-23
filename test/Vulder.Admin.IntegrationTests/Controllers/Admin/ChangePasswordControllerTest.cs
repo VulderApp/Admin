@@ -8,6 +8,7 @@ using Xunit;
 
 namespace Vulder.Admin.IntegrationTests.Controllers.Admin;
 
+[Collection("Change Password Collection")]
 public class ChangePasswordControllerTest
 {
     [Fact]
@@ -21,9 +22,11 @@ public class ChangePasswordControllerTest
 
         await using var application = new WebServerFactory();
         using var client = application.CreateClient();
-        var httpContent = new StringContent(JsonConvert.SerializeObject(registerModel), Encoding.UTF8, "application/json");
+        var httpContent =
+            new StringContent(JsonConvert.SerializeObject(registerModel), Encoding.UTF8, "application/json");
         using var registerResponse = await client.PostAsync("/auth/Register", httpContent);
-        var token = JsonConvert.DeserializeObject<AuthUserDto>(await registerResponse.Content.ReadAsStringAsync())!.Token;
+        var token = JsonConvert.DeserializeObject<AuthUserDto>(await registerResponse.Content.ReadAsStringAsync())!
+            .Token;
 
         var changePasswordModel = new ChangePasswordModel
         {
@@ -31,7 +34,8 @@ public class ChangePasswordControllerTest
             NewPassword = "NzjDED/7tqsSFI62KRwHyBe8eHOFjGbyiDw/M1BEOEw="
         };
 
-        httpContent = new StringContent(JsonConvert.SerializeObject(changePasswordModel), Encoding.UTF8, "application/json");
+        httpContent = new StringContent(JsonConvert.SerializeObject(changePasswordModel), Encoding.UTF8,
+            "application/json");
         client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
         using var changePasswordResponse = await client.PutAsync("/admin/ChangePassword", httpContent);
 

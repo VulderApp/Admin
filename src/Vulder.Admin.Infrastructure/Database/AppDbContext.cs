@@ -6,14 +6,14 @@ namespace Vulder.Admin.Infrastructure.Database;
 
 public class AppDbContext : DbContext
 {
-    public DbSet<User>? Users { get; set; }
-
     private readonly string _connectionString;
 
     public AppDbContext(string connectionString)
     {
         _connectionString = connectionString;
     }
+
+    public DbSet<User>? Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
