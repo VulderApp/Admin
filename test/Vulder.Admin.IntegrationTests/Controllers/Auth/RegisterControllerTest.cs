@@ -11,7 +11,7 @@ namespace Vulder.Admin.IntegrationTests.Controllers.Auth;
 public class RegisterControllerTest
 {
     [Fact]
-    public async void POST_RegisterController_200_StatusCode()
+    public async void POST_1_RegisterController_200_StatusCode()
     {
         var body = new RegisterUserModel
         {
@@ -27,9 +27,9 @@ public class RegisterControllerTest
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
-
+    
     [Fact]
-    public async void POST_RegisterController_500_StatusCode()
+    public async void POST_2_RegisterController_500_StatusCode()
     {
         var body = new RegisterUserModel
         {

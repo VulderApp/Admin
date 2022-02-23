@@ -8,6 +8,7 @@ using Xunit;
 
 namespace Vulder.Admin.IntegrationTests.Controllers.Admin;
 
+[Collection("Change Password Collection")]
 public class ChangePasswordControllerTest
 {
     [Fact]
