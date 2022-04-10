@@ -1,9 +1,10 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using NLog.Web;
 using Vulder.Admin.Application;
 using Vulder.Admin.Infrastructure;
-using Vulder.Admin.Infrastructure.Middlewares;
 using Vulder.SharedKernel;
+using Vulder.SharedKernel.Middlewares;
 
 AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
 
@@ -21,6 +22,7 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory(contain
     containerBuild.RegisterModule(new ApplicationModule(builder.Configuration));
     containerBuild.RegisterModule(new InfrastructureModule(builder.Configuration["PostgresConnectionString"]));
 }));
+builder.Host.UseNLog();
 
 var app = builder.Build();
 
@@ -31,6 +33,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
+app.UseMiddleware<ControllerActionLoggingMiddleware>();
 
 app.UseHttpsRedirection();
 
