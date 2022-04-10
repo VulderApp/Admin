@@ -7,18 +7,20 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Autofac" Version="6.3.0"/>
-        <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0"/>
-        <PackageReference Include="FluentValidation" Version="10.4.0"/>
-        <PackageReference Include="MediatR" Version="10.0.1"/>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0"/>
-        <PackageReference Include="Vulder.SharedKernel" Version="0.1.9"/>
+        <PackageReference Include="Autofac" Version="6.3.0" />
+        <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
+        <PackageReference Include="FluentValidation" Version="10.4.0" />
+        <PackageReference Include="MediatR" Version="10.0.1" />
+        <PackageReference Include="NLog" Version="4.7.15" />
+        <PackageReference Include="NLog.Web.AspNetCore" Version="4.14.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
+        <PackageReference Include="Vulder.SharedKernel" Version="0.1.10" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Vulder.Admin.Application\Vulder.Admin.Application.csproj"/>
-        <ProjectReference Include="..\Vulder.Admin.Core\Vulder.Admin.Core.csproj"/>
-        <ProjectReference Include="..\Vulder.Admin.Infrastructure\Vulder.Admin.Infrastructure.csproj"/>
+        <ProjectReference Include="..\Vulder.Admin.Application\Vulder.Admin.Application.csproj" />
+        <ProjectReference Include="..\Vulder.Admin.Core\Vulder.Admin.Core.csproj" />
+        <ProjectReference Include="..\Vulder.Admin.Infrastructure\Vulder.Admin.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
