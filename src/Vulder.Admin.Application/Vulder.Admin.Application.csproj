@@ -7,14 +7,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Autofac" Version="6.3.0" />
-        <PackageReference Include="MediatR" Version="10.0.1" />
-        <PackageReference Include="Vulder.SharedKernel" Version="0.1.10" />
+        <PackageReference Include="Autofac" Version="6.3.0"/>
+        <PackageReference Include="MediatR" Version="10.0.1"/>
+        <PackageReference Include="Vulder.SharedKernel" Version="0.1.10"/>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Vulder.Admin.Core\Vulder.Admin.Core.csproj" />
-        <ProjectReference Include="..\Vulder.Admin.Infrastructure\Vulder.Admin.Infrastructure.csproj" />
+        <ProjectReference Include="..\Vulder.Admin.Core\Vulder.Admin.Core.csproj"/>
+        <ProjectReference Include="..\Vulder.Admin.Infrastructure\Vulder.Admin.Infrastructure.csproj"/>
     </ItemGroup>
 
 </Project>

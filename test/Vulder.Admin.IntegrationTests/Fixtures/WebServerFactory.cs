@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
 
-namespace Vulder.Admin.IntegrationTests;
+namespace Vulder.Admin.IntegrationTests.Fixtures;
 
 public class WebServerFactory : WebApplicationFactory<Program>
 {
