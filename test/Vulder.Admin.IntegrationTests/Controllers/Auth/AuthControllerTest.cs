@@ -32,7 +32,7 @@ public class AuthControllerTest
         await using var application = new WebServerFactory();
         using var client = application.CreateClient();
         var httpContent = new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json");
-        using var response = await client.PostAsync("/auth/Register", httpContent);
+        using var response = await client.PostAsync("/auth/register", httpContent);
         var registerUserModel = JsonConvert.DeserializeObject<AuthUserDto>(await response.Content.ReadAsStringAsync());
 
         _adminCredentials.Token = registerUserModel?.Token;
@@ -54,7 +54,7 @@ public class AuthControllerTest
         await using var application = new WebServerFactory();
         using var client = application.CreateClient();
         var httpContent = new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json");
-        using var response = await client.PostAsync("/auth/Register", httpContent);
+        using var response = await client.PostAsync("/auth/register", httpContent);
 
         Assert.Equal(HttpStatusCode.InternalServerError, response.StatusCode);
     }
@@ -73,7 +73,7 @@ public class AuthControllerTest
         using var client = application.CreateClient();
 
         var httpContent = new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json");
-        using var response = await client.PostAsync("/auth/Login", httpContent);
+        using var response = await client.PostAsync("/auth/login", httpContent);
         var registerUserModel = JsonConvert.DeserializeObject<AuthUserDto>(await response.Content.ReadAsStringAsync());
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
