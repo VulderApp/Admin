@@ -33,7 +33,7 @@ public class ChangePasswordControllerTest
         var httpContent = new StringContent(JsonConvert.SerializeObject(changePasswordModel), Encoding.UTF8,
             "application/json");
         client.DefaultRequestHeaders.Add("Authorization", $"Bearer {_adminCredentials.Token}");
-        using var response = await client.PutAsync("/admin/ChangePassword", httpContent);
+        using var response = await client.PutAsync("/admin/changePassword", httpContent);
         var registerUserModel = JsonConvert.DeserializeObject<ResultDto>(await response.Content.ReadAsStringAsync());
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);

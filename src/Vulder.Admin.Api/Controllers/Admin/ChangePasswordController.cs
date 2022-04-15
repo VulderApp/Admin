@@ -9,7 +9,7 @@ namespace Vulder.Admin.Api.Controllers.Admin;
 
 [Authorize]
 [ApiController]
-[Route("/admin/[controller]")]
+[Route("/admin/changePassword")]
 public class ChangePasswordController : ControllerBase
 {
     private readonly IMediator _mediator;

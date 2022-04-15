@@ -6,7 +6,7 @@ using Vulder.Admin.Infrastructure.Database.Interfaces;
 namespace Vulder.Admin.Api.Controllers.Auth;
 
 [ApiController]
-[Route("/auth/[controller]")]
+[Route("/auth/register")]
 public class RegisterController : ControllerBase
 {
     private readonly IMediator _mediator;

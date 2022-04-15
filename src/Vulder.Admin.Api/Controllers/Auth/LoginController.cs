@@ -5,7 +5,7 @@ using Vulder.Admin.Core.Models;
 namespace Vulder.Admin.Api.Controllers.Auth;
 
 [ApiController]
-[Route("/auth/[controller]")]
+[Route("/auth/login")]
 public class LoginController : ControllerBase
 {
     private readonly IMediator _mediator;
