@@ -1,5 +1,6 @@
 using MediatR;
 using Vulder.Admin.Application.Auth.Jwt;
+using Vulder.Admin.Core.Exceptions;
 using Vulder.Admin.Core.Models;
 using Vulder.Admin.Core.ProjectAggregate.User.Dtos;
 using Vulder.Admin.Core.Utils;
