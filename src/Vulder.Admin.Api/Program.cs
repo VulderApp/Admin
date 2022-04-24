@@ -1,6 +1,7 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using NLog.Web;
+using Vulder.Admin.Api;
 using Vulder.Admin.Application;
 using Vulder.Admin.Infrastructure;
 using Vulder.SharedKernel;
