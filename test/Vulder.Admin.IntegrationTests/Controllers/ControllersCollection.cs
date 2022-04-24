@@ -1,5 +1,5 @@
-using Xunit;
 using Vulder.Admin.IntegrationTests.Fixtures;
+using Xunit;
 
 namespace Vulder.Admin.IntegrationTests.Controllers;
 

@@ -1,6 +1,7 @@
 using MediatR;
 using Vulder.Admin.Application.Auth.Jwt;
 using Vulder.Admin.Core;
+using Vulder.Admin.Core.Exceptions;
 using Vulder.Admin.Core.Models;
 using Vulder.Admin.Core.ProjectAggregate.User;
 using Vulder.Admin.Core.ProjectAggregate.User.Dtos;
@@ -25,7 +26,8 @@ public class RegisterUserRequestHandler : IRequestHandler<RegisterUserModel, Aut
         if (Constants.RegisterOnlyOneAccount())
         {
             var userCount = await _userRepository.GetUserCount();
-            if (userCount > 0) throw new Exception("Couldn't register next account because 1 account is exists");
+            if (userCount > 0)
+                throw new UserIsExistsException("Couldn't register next account because 1 account is exists");
         }
 
         var user = new User

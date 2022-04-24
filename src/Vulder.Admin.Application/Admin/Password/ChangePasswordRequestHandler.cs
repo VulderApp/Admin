@@ -1,9 +1,9 @@
 using MediatR;
-using Vulder.Admin.Core.Exceptions;
 using Vulder.Admin.Core.Models;
 using Vulder.Admin.Core.ProjectAggregate.User.Dtos;
 using Vulder.Admin.Core.Utils;
 using Vulder.Admin.Infrastructure.Database.Interfaces;
+using Vulder.SharedKernel.Exceptions;
 
 namespace Vulder.Admin.Application.Admin.Password;
 

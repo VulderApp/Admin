@@ -56,7 +56,7 @@ public class AuthControllerTest
         var httpContent = new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json");
         using var response = await client.PostAsync("/auth/register", httpContent);
 
-        Assert.Equal(HttpStatusCode.InternalServerError, response.StatusCode);
+        Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
     }
 
     [Fact]
