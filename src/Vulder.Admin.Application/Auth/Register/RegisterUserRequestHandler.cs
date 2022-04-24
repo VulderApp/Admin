@@ -26,7 +26,8 @@ public class RegisterUserRequestHandler : IRequestHandler<RegisterUserModel, Aut
         if (Constants.RegisterOnlyOneAccount())
         {
             var userCount = await _userRepository.GetUserCount();
-            if (userCount > 0) throw new UserIsExistsException("Couldn't register next account because 1 account is exists");
+            if (userCount > 0)
+                throw new UserIsExistsException("Couldn't register next account because 1 account is exists");
         }
 
         var user = new User

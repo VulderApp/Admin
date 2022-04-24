@@ -5,7 +5,6 @@ using Newtonsoft.Json;
 using Vulder.Admin.Core.Models;
 using Vulder.Admin.Core.ProjectAggregate.User.Dtos;
 using Vulder.Admin.IntegrationTests.Fixtures;
-using Vulder.SharedKernel.Exceptions;
 using Xunit;
 
 namespace Vulder.Admin.IntegrationTests.Controllers.Auth;
