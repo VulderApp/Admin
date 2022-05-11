@@ -10,7 +10,7 @@
         <PackageReference Include="Autofac" Version="6.3.0"/>
         <PackageReference Include="BCrypt.Net-Next" Version="4.0.3"/>
         <PackageReference Include="FluentValidation" Version="11.0.1"/>
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.4"/>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.5"/>
         <PackageReference Include="Vulder.SharedKernel" Version="0.1.13"/>
     </ItemGroup>
 
