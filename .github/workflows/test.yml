@@ -1,0 +1,33 @@
+name: Test
+on:
+  push:
+    branches: [ dev ]
+  pull_request:
+    branches: [ dev ]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Create postgres-vulder volume
+        run: docker volume create --name=postgres-vulder
+      - name: Build the docker-compose stack
+        run: docker-compose -f docker-compose.test.yml up -d
+      - name: Check running containers
+        run: docker ps -a
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Run migrations
+        env:
+          POSTGRES_CONNECTION_STRING: Server=localhost;Database=admin;Uid=test;Pwd=123;
+        run: |
+          dotnet tool install --global dotnet-ef
+          dotnet ef database update --project ./src/Vulder.Admin.Infrastructure
+      - name: Test project
+        run: dotnet test --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
